@@ -13,7 +13,7 @@
 Итоги выполнения:
 - <a href="Task1/airport_diagram.png">схема</a>
 - <a href="Task1/discription.txt">пояснение к схеме</a>
-- <a href="Task1/commands_to_create.txt">команды создания таблиц</a>
+- <a href="Task1/commands_to_create.sql">команды создания таблиц</a>
 - планируемое время выполнения - 8 часов
 - реально затраченное - 6 часов
 
