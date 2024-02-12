@@ -51,6 +51,6 @@ CREATE TABLE reservations
 (
 	id serial PRIMARY KEY,
 	reservation_date varchar(50) NOT NULL,
-	fk_reservations_tickets varchar(15) REFERENCES tickets(code),
+	fk_reservations_tickets varchar(15) UNIQUE REFERENCES tickets(code),
 	fk_reservations_clients varchar(15) REFERENCES clients(passport_id)
 );
