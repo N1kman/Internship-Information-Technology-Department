@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS public.aircraft
 	company VARCHAR(50) NOT NULL
 );
 
-
 CREATE TABLE IF NOT EXISTS public.seat
 (
 	id BIGSERIAL PRIMARY KEY,
