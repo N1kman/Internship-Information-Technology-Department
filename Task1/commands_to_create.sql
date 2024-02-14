@@ -1,56 +1,66 @@
-CREATE TABLE aircrafts
+CREATE TABLE IF NOT EXISTS public.aircraft
 (
-	code varchar(15) PRIMARY KEY,
-	model varchar(50) NOT NULL,
-	company varchar(50) NOT NULL
+	id BIGSERIAL PRIMARY KEY,
+	registration_number VARCHAR(15),
+	model VARCHAR(50) NOT NULL,
+	company VARCHAR(50) NOT NULL
 );
 
 
-CREATE TABLE seats
+CREATE TABLE IF NOT EXISTS public.seat
 (
-	id serial PRIMARY KEY,
-	code varchar(15) NOT NULL,
-	seat_type varchar(50) NOT NULL,
-	fk_seats_aircrafts varchar(15) REFERENCES aircrafts(code)
+	id BIGSERIAL PRIMARY KEY,
+	seat_number VARCHAR(15) NOT NULL,
+	seat_type VARCHAR(50) NOT NULL,
+	id_aircraft BIGINT NOT NULL,
+	CONSTRAINT fk_aircraft FOREIGN KEY(id_aircraft) REFERENCES aircraft(id)
 );
 
-CREATE TABLE flights
+CREATE TABLE IF NOT EXISTS public.flight
 (
-	code varchar(15) PRIMARY KEY,
-	place_departure varchar(50) NOT NULL,
-	place_arrival varchar(50) NOT NULL,
-	flight_date varchar(50) NOT NULL,
-	status int NOT NULL,
-	fk_flights_aircrafts varchar(15) REFERENCES aircrafts(code)
+	id BIGSERIAL PRIMARY KEY,
+	code VARCHAR(15) NOT NULL,
+	place_departure VARCHAR(50) NOT NULL,
+	place_arrival VARCHAR(50) NOT NULL,
+	date_departure TIMESTAMP NOT NULL,
+	date_arrival TIMESTAMP NOT NULL,
+	id_aircraft BIGINT NOT NULL,
+	CONSTRAINT fk_aircraft FOREIGN KEY(id_aircraft) REFERENCES aircraft(id)
 );
 
-CREATE TABLE clients
+CREATE TABLE IF NOT EXISTS public.client
 (
-	passport_id varchar(15) PRIMARY KEY,
-	firstname varchar(50) NOT NULL,
-	surname varchar(50) NOT NULL,
-	patronymic varchar(50) NOT NULL
+	id BIGSERIAL PRIMARY KEY,
+	passport_id VARCHAR(15) NOT NULL,
+	firstname VARCHAR(50) NOT NULL,
+	surname VARCHAR(50) NOT NULL,
+	patronymic VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE history
+CREATE TABLE IF NOT EXISTS public.history
 (
-	flight_id varchar(15) REFERENCES flights(code),
-	client_id varchar(15) REFERENCES clients(passport_id),
-	CONSTRAINT flights_clients_id PRIMARY KEY (flight_id, client_id)
+	id_flight BIGINT NOT NULL,
+	id_client BIGINT NOT NULL,
+	PRIMARY KEY (id_flight, id_client),
+	CONSTRAINT fk_flight FOREIGN KEY(id_flight) REFERENCES flight(id),
+	CONSTRAINT fk_client FOREIGN KEY(id_client) REFERENCES client(id)
 );
 
-CREATE TABLE tickets
+CREATE TABLE IF NOT EXISTS public.ticket
 (
-	code varchar(15) PRIMARY KEY,
-	seat_code varchar(15) NOT NULL,
-	status boolean NOT NULL,
-	fk_tickets_flights varchar(15) REFERENCES flights(code)
+	id BIGSERIAL PRIMARY KEY,
+	ticket_number VARCHAR(15) NOT NULL,
+	seat_number VARCHAR(15) NOT NULL,
+	ticket_status BOOLEAN NOT NULL,
+	id_flight BIGINT NOT NULL,
+	CONSTRAINT fk_flight FOREIGN KEY(id_flight) REFERENCES flight(id)
 );
 
-CREATE TABLE reservations
+CREATE TABLE IF NOT EXISTS public.reservation
 (
-	id serial PRIMARY KEY,
-	reservation_date varchar(50) NOT NULL,
-	fk_reservations_tickets varchar(15) UNIQUE REFERENCES tickets(code),
-	fk_reservations_clients varchar(15) REFERENCES clients(passport_id)
+	id_ticket BIGINT PRIMARY KEY,
+	reservation_date TIMESTAMP DEFAULT now(),
+	id_client BIGINT NOT NULL,
+	CONSTRAINT fk_ticket FOREIGN KEY(id_ticket) REFERENCES ticket(id),
+	CONSTRAINT fk_client FOREIGN KEY(id_client) REFERENCES client(id)
 );
