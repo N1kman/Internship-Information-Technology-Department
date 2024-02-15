@@ -49,10 +49,11 @@ CREATE TABLE IF NOT EXISTS public.ticket
 (
 	id BIGSERIAL PRIMARY KEY,
 	ticket_number VARCHAR(15) NOT NULL,
-	seat_number VARCHAR(15) NOT NULL,
 	ticket_status BOOLEAN NOT NULL,
 	id_flight BIGINT NOT NULL,
-	CONSTRAINT fk_flight FOREIGN KEY(id_flight) REFERENCES flight(id)
+	id_seat BIGINT NOT NULL,
+	CONSTRAINT fk_flight FOREIGN KEY(id_flight) REFERENCES flight(id),
+	CONSTRAINT fk_seat FOREIGN KEY(id_seat) REFERENCES seat(id)
 );
 
 CREATE TABLE IF NOT EXISTS public.reservation
