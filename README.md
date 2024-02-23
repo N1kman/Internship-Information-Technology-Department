@@ -18,7 +18,7 @@
 Условие :page_facing_up: : 
   - создание консольного приложения (CRUD-операции) с использованием JDBC
 
-Ветка для задания - <a href="https://github.com/N1kman/Internship-Information-Technology-Department/tree/Task1">TASK2</a> ✔️ 
+Ветка для задания - <a href="https://github.com/N1kman/Internship-Information-Technology-Department/tree/Task2">TASK2</a> ✔️ 
 
 ### Задание 3️⃣
 
