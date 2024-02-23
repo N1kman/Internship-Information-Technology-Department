@@ -15,11 +15,11 @@ public class Reservation {
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	Date ReservationDate;
+	Date reservationDate;
 	
 	@EqualsAndHashCode.Exclude
-	private Ticket Ticket;
+	private Ticket ticket;
 	
 	@EqualsAndHashCode.Exclude
-	private Client Client;
+	private Client client;
 }

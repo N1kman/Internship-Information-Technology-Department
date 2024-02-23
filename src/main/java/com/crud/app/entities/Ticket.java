@@ -24,6 +24,6 @@ public class Ticket {
 	private Seat seat;
 	
 	@EqualsAndHashCode.Exclude
-	private Reservation Reservation;
+	private Reservation reservation;
 
 }

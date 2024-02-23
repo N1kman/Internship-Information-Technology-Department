@@ -1,13 +1,17 @@
-package com.crud.app.services.impl;
+package com.crud.app.utils;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ServiceProps {
+public class ServicePropsUtils {
 	
-	public static final Logger logger = LoggerFactory.getLogger(ServiceProps.class.getName());
+	private ServicePropsUtils() {
+	    throw new IllegalStateException("Utility class");
+	}
+	
+	public static final Logger logger = LoggerFactory.getLogger(ServicePropsUtils.class.getName());
 
 	public static PropertiesConfiguration loadProps(String filename) {
 		PropertiesConfiguration props = null;

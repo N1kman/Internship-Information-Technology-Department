@@ -28,5 +28,5 @@ public class Client {
 	private Set<Flight> flights = new HashSet<>();
 	
 	@EqualsAndHashCode.Exclude
-	private Set<Reservation> Reservation = new HashSet<>();
+	private Set<Reservation> reservation = new HashSet<>();
 }
