@@ -11,14 +11,14 @@
 - желательно использовать PostgreSQL
 - подключить Sonar Cloud
 
-Ветка для задания - TASK1 ✔️
+Ветка для задания - <a href="https://github.com/N1kman/Internship-Information-Technology-Department/tree/Task1">TASK1</a> ✔️
 
 ### Задание 2️⃣
 
 Условие :page_facing_up: : 
   - создание консольного приложения (CRUD-операции) с использованием JDBC
 
-Ветка для задания - TASK2 ✔️ 
+Ветка для задания - <a href="https://github.com/N1kman/Internship-Information-Technology-Department/tree/Task1">TASK2</a> ✔️ 
 
 ### Задание 3️⃣
 
