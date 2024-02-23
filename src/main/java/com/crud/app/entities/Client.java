@@ -11,20 +11,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Aircraft {
+public class Client {
 	
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	private String registrationNumber;
+	String passportId;
 	
-	private String model;
+	String firstname;
 	
-	private String company;
+	String surname;
 	
-	@EqualsAndHashCode.Exclude
-	private Set<Seat> seats = new HashSet<>();
+	String patronymic;
 	
 	@EqualsAndHashCode.Exclude
 	private Set<Flight> flights = new HashSet<>();
+	
+	@EqualsAndHashCode.Exclude
+	private Set<Reservation> Reservation = new HashSet<>();
 }

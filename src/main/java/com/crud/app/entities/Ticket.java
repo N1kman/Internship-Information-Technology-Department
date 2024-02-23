@@ -1,8 +1,5 @@
 package com.crud.app.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,20 +8,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Aircraft {
+public class Ticket {
 	
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	private String registrationNumber;
+	String ticketNumber;
 	
-	private String model;
-	
-	private String company;
+	Boolean ticketStatus;
 	
 	@EqualsAndHashCode.Exclude
-	private Set<Seat> seats = new HashSet<>();
+	private Flight flight;
 	
 	@EqualsAndHashCode.Exclude
-	private Set<Flight> flights = new HashSet<>();
+	private Seat seat;
+	
+	@EqualsAndHashCode.Exclude
+	private Reservation Reservation;
+
 }

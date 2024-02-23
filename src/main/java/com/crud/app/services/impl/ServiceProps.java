@@ -6,14 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ServiceProps {
+	
 	public static final Logger logger = LoggerFactory.getLogger(ServiceProps.class.getName());
-	String filename;
-	
-	public ServiceProps(String filename) {
-		this.filename = filename;
-	}
-	
-	public PropertiesConfiguration loadProps() {
+
+	public static PropertiesConfiguration loadProps(String filename) {
 		PropertiesConfiguration props = null;
 		try {
 			logger.trace("Creates and loads the extended properties from \"{}\"", filename);
