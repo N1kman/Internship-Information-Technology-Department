@@ -17,13 +17,13 @@ public class Ticket {
 	
 	Boolean ticketStatus;
 	
-	@EqualsAndHashCode.Exclude
-	private Flight flight;
+	//@EqualsAndHashCode.Exclude
+	//private Flight flight;
 	
 	@EqualsAndHashCode.Exclude
 	private Seat seat;
 	
-	@EqualsAndHashCode.Exclude
-	private Reservation reservation;
+	//@EqualsAndHashCode.Exclude
+	//private Reservation reservation;
 
 }

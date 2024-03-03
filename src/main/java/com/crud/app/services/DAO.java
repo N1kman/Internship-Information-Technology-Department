@@ -5,16 +5,14 @@ import java.util.List;
 
 public interface DAO<T> {
 	
-	public T get(long id) throws SQLException;
+	public T findById(long id) throws SQLException;
 	
-	public List<T> getAll(long id) throws SQLException;
+	public List<T> findAll() throws SQLException;
 	
-	public int save(T temlate) throws SQLException;
+	public T insert(T template) throws SQLException;
 	
-	public int insert(T temlate) throws SQLException;
+	public T update(T template) throws SQLException;
 	
-	public int update(T temlate) throws SQLException;
-	
-	public int delete(T temlate) throws SQLException;
+	public T delete(T template) throws SQLException;
 	
 }

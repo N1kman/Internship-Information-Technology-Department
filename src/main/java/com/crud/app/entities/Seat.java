@@ -1,8 +1,5 @@
 package com.crud.app.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,13 +13,15 @@ public class Seat {
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	String seatNumber;
+	private String seatNumber;
 	
-	String seatType;
+	private String seatType;
 	
-	@EqualsAndHashCode.Exclude
-	private Aircraft aircraft;
+	private Long aircraftId;
 	
-	@EqualsAndHashCode.Exclude
-	private Set<Ticket> tickets = new HashSet<>();
+	//@EqualsAndHashCode.Exclude
+	//private Aircraft aircraft;
+	
+	//@EqualsAndHashCode.Exclude
+	//private Set<Ticket> tickets = new HashSet<>();
 }

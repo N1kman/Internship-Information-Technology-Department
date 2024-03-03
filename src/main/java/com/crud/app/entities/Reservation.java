@@ -1,6 +1,6 @@
 package com.crud.app.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,11 +15,11 @@ public class Reservation {
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	Date reservationDate;
+	LocalDateTime reservationDate;
 	
 	@EqualsAndHashCode.Exclude
 	private Ticket ticket;
 	
-	@EqualsAndHashCode.Exclude
-	private Client client;
+	//@EqualsAndHashCode.Exclude
+	//private Client client;
 }

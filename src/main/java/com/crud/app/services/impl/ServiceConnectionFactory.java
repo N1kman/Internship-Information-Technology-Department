@@ -20,7 +20,7 @@ public class ServiceConnectionFactory implements ConnectionFactory {
 	
 	private static final String PROPERTY_PASSWORD = "datasource.password";
 	
-	private static final String PROPERTY_FILE_PATH = "application.properties";
+	private static final String PROPERTY_FILE_PATH = "database.properties";
 	
 	public static void setLocalDriver(String driverPath) throws ClassNotFoundException {
 		Class.forName(driverPath);

@@ -19,7 +19,7 @@ public class ServicePropsUtils {
 			logger.trace("Creates and loads the extended properties from \"{}\"", filename);
 			props = new PropertiesConfiguration(filename);
 		}  catch(ConfigurationException exception) {
-			logger.error("Problems reading the extended properties from \"{}\"", filename);
+			logger.error("Problems reading the extended properties", exception);
 		}
 		return props;	
 	}

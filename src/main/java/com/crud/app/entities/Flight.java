@@ -1,8 +1,6 @@
 package com.crud.app.entities;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,16 +20,16 @@ public class Flight {
 	
 	String placeArrival;
 	
-	Date dateDeparture;
+	LocalDateTime dateDeparture;
 	
-	Date dateArrival;
+	LocalDateTime dateArrival;
 
 	@EqualsAndHashCode.Exclude
 	private Aircraft aircraft;
 	
-	@EqualsAndHashCode.Exclude
-	private Set<Client> clients = new HashSet<>();
+	//@EqualsAndHashCode.Exclude
+	//private Set<Client> clients = new HashSet<>();
 	
-	@EqualsAndHashCode.Exclude
-	private Set<Ticket> tickets = new HashSet<>();
+	//@EqualsAndHashCode.Exclude
+	//private Set<Ticket> tickets = new HashSet<>();
 }

@@ -25,6 +25,6 @@ public class Aircraft {
 	@EqualsAndHashCode.Exclude
 	private Set<Seat> seats = new HashSet<>();
 	
-	@EqualsAndHashCode.Exclude
-	private Set<Flight> flights = new HashSet<>();
+	//@EqualsAndHashCode.Exclude
+	//private Set<Flight> flights = new HashSet<>();
 }
