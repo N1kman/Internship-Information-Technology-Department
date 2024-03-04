@@ -13,9 +13,9 @@ public class Ticket {
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	String ticketNumber;
+	private String ticketNumber;
 	
-	Boolean ticketStatus;
+	private Boolean ticketStatus;
 	
 	//@EqualsAndHashCode.Exclude
 	//private Flight flight;

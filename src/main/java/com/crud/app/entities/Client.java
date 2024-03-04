@@ -16,13 +16,13 @@ public class Client {
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	String passportId;
+	private String passportId;
 	
-	String firstname;
+	private String firstname;
 	
-	String surname;
+	private String surname;
 	
-	String patronymic;
+	private String patronymic;
 	
 	@EqualsAndHashCode.Exclude
 	private Set<Flight> flights = new HashSet<>();

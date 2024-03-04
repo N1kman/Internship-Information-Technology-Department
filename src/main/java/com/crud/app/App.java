@@ -1,8 +1,7 @@
 package com.crud.app;
 
-import java.sql.SQLException;
-
 import com.crud.app.entities.Seat;
+import com.crud.app.exceptions.DAOException;
 import com.crud.app.services.DAO;
 import com.crud.app.services.impl.SeatDAOImpl;
 import com.crud.app.services.impl.ServiceConnectionFactory;
@@ -24,9 +23,9 @@ public class App
     	try {
     		ServiceConnectionFactory.setLocalDriverFromProperties();
 			
-			System.out.println(dao.update(new Seat(1l, "A-01", "standart", 1l)));
+			System.out.println(dao.findAll());
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (DAOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
     	

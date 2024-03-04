@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crud.app.entities.Seat;
+import com.crud.app.exceptions.DAOException;
 import com.crud.app.services.SeatDAO;
 import com.crud.app.utils.ServicePropsUtils;
 
@@ -19,64 +20,65 @@ public class SeatDAOImpl implements SeatDAO {
 	
 	ServiceConnectionFactory serviceConnectionFactory = new ServiceConnectionFactory();
 	
-	public static final Logger logger = LoggerFactory.getLogger(ServicePropsUtils.class.getName());
+	public static final Logger logger = LoggerFactory.getLogger(ServicePropsUtils.class);
 	
-	public static final String SQLRequestFindAll = "SELECT id, seat_number, seat_type, id_aircraft FROM seat";
+	public static final String SQL_REQUEST_FIND_ALL = "SELECT id, seat_number, seat_type, id_aircraft FROM seat";	
+	public static final String SQL_REQUEST_FIND_BY_ID = "SELECT id, seat_number, seat_type, id_aircraft FROM seat WHERE id=?";
+	public static final String SQL_REQUEST_INSERT = "INSERT INTO seat (seat_number, seat_type, id_aircraft) VALUES (?, ?, ?)";
+	public static final String SQL_REQUEST_UPDATE = "UPDATE seat SET seat_number=?, seat_type=?, id_aircraft=? WHERE id=?";
+	public static final String SQL_REQUEST_DELETE = "DELETE FROM seat WHERE id=?";
 	
-	public static final String SQLRequestFindById = "SELECT id, seat_number, seat_type, id_aircraft FROM seat WHERE id=?";
-	
-	public static final String SQLRequestInsert = "INSERT INTO seat (seat_number, seat_type, id_aircraft) VALUES (?, ?, ?)";
-	
-	public static final String SQLRequestUpdate = "UPDATE seat SET seat_number=?, seat_type=?, id_aircraft=? WHERE id=?";
-	
-	public static final String SQLRequestDelete = "DELETE FROM seat WHERE id=?";
+	public static final String COLUMN_ID = "id";
+	public static final String COLUMN_SEAT_NUMBER = "seat_number";
+	public static final String COLUMN_SEAT_TYPE = "seat_type";
+	public static final String COLUMN_ID_AIRCRAFT = "id_aircraft";
 
 	@Override
-	public Seat findById(long id) throws SQLException {
+	public Seat findById(long id) throws DAOException {
 		Connection conn = null;
 		Seat seat = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		try {
-			logger.trace("Open connection");
+			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
 			conn = serviceConnectionFactory.openConnection();
 			try {
-				logger.trace("Create prepared statement");
-				st = conn.prepareStatement(SQLRequestFindById);
+				logger.trace(DAOException.PROCESS_CREATE_STATEMENT);
+				st = conn.prepareStatement(SQL_REQUEST_FIND_BY_ID);
 				st.setLong(1, id);
 				try {
-					logger.trace("Get result set");
+					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.executeQuery();
 					if(rs.next()) {
-						seat = new Seat(rs.getLong("id"), rs.getString("seat_number"), rs.getString("seat_type"), rs.getLong("id_aircraft"));
-						logger.trace("Read seat: ", seat);
+						seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
+						logger.trace(DAOException.SUCCESS_EXECUTED);
 					}
 				} finally {
 					try {
 						rs.close();
-						logger.trace("Result set closed");
+						logger.trace(DAOException.SUCCESS_RESULT_SET_CLOSED);
 					} catch(SQLException e) {
-						logger.error("Cannot close result set", e);
+						logger.error(DAOException.UNSUCCESS_RESULT_SET_CLOSED, e);
 					}
 				}
 			} finally {
 				try {
 					serviceConnectionFactory.closeConnection(conn);
-					logger.trace("Prepared statement closed");
+					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
-					logger.error("Cannot close prepared statement", e);
+					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
 				}
 			}	
 		} catch(SQLException e) {
-			logger.error("Cannot findById seat", e);
-			throw new SQLException("Cannot findById seat", e);
+			logger.error(DAOException.UNSUCCESS_EXECUTED, e);
+			throw new DAOException(DAOException.UNSUCCESS_EXECUTED);
 		} finally {
 			try {
 				serviceConnectionFactory.closeConnection(conn);
-				logger.trace("Connection closed");
+				logger.trace(DAOException.SUCCESS_CONNECTION_CLOSED);
 			} catch(SQLException e) {
-				logger.error("Cannot close connection", e);
+				logger.error(DAOException.UNSUCCESS_CONNECTION_CLOSED, e);
 			}
 		}
 		
@@ -85,53 +87,53 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public List<Seat> findAll() throws SQLException {
+	public List<Seat> findAll() throws DAOException {
 		Connection conn = null;
 		Seat seat = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		List<Seat> list= new LinkedList<Seat>();
+		List<Seat> list= new LinkedList<>();
 		
 		try {
-			logger.trace("Open connection");
+			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
 			conn = serviceConnectionFactory.openConnection();
 			try {
-				logger.trace("Create prepared statement");
-				st = conn.prepareStatement(SQLRequestFindAll);
+				logger.trace(DAOException.PROCESS_CREATE_STATEMENT);
+				st = conn.prepareStatement(SQL_REQUEST_FIND_ALL);
 				try {
-					logger.trace("Get result set");
+					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.executeQuery();
 					while(rs.next()) {
-						seat = new Seat(rs.getLong("id"), rs.getString("seat_number"), rs.getString("seat_type"), rs.getLong("id_aircraft"));
+						seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
 						list.add(seat);
 					}
-					logger.trace("Read seat list: ", list);
+					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
 					try {
 						rs.close();
-						logger.trace("Result set closed");
+						logger.trace(DAOException.SUCCESS_RESULT_SET_CLOSED);
 					} catch(SQLException e) {
-						logger.error("Cannot close result set", e);
+						logger.error(DAOException.UNSUCCESS_RESULT_SET_CLOSED, e);
 					}
 				}
 			} finally {
 				try {
 					serviceConnectionFactory.closeConnection(conn);
-					logger.trace("Prepared statement closed");
+					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
-					logger.error("Cannot close prepared statement", e);
+					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
 				}
 			}
 			
 		} catch(SQLException e) {
-			logger.error("Cannot findAll seat", e);
-			throw new SQLException("Cannot findAll seat", e);
+			logger.error(DAOException.UNSUCCESS_EXECUTED, e);
+			throw new DAOException(DAOException.UNSUCCESS_EXECUTED);
 		} finally {
 			try {
 				serviceConnectionFactory.closeConnection(conn);
-				logger.trace("Connection closed");
+				logger.trace(DAOException.SUCCESS_CONNECTION_CLOSED);
 			} catch(SQLException e) {
-				logger.error("Cannot close connection", e);
+				logger.error(DAOException.UNSUCCESS_CONNECTION_CLOSED, e);
 			}
 		}
 		
@@ -139,52 +141,52 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public Seat insert(Seat template) throws SQLException {
+	public Seat insert(Seat template) throws DAOException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		try {
-			logger.trace("Open connection");
+			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
 			conn = serviceConnectionFactory.openConnection();
 			try {
-				logger.trace("Create prepared statement");
-				st = conn.prepareStatement(SQLRequestInsert, Statement.RETURN_GENERATED_KEYS);
+				logger.trace(DAOException.PROCESS_CREATE_STATEMENT);
+				st = conn.prepareStatement(SQL_REQUEST_INSERT, Statement.RETURN_GENERATED_KEYS);
 				st.setString(1, template.getSeatNumber());
 				st.setString(2, template.getSeatType());
 				st.setLong(3, template.getAircraftId());
 				st.execute();
 				try {
-					logger.trace("Get result set");
+					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.getGeneratedKeys();
 					rs.next();
-					template.setId(rs.getLong("id"));
-					logger.trace("Insert seat with id=" + template.getId());
+					template.setId(rs.getLong(COLUMN_ID));
+					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
 					try {
 						rs.close();
-						logger.trace("Result set closed");
+						logger.trace(DAOException.SUCCESS_RESULT_SET_CLOSED);
 					} catch(SQLException e) {
-						logger.error("Cannot close result set", e);
+						logger.error(DAOException.UNSUCCESS_RESULT_SET_CLOSED, e);
 					}
 				}
 			} finally {
 				try {
 					serviceConnectionFactory.closeConnection(conn);
-					logger.trace("Prepared statement closed");
+					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
-					logger.error("Cannot close prepared statement", e);
+					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
 				}
 			}	
 		} catch(SQLException e) {
-			logger.error("Cannot insert seat", e);
-			throw new SQLException("Cannot insert seat", e);
+			logger.error(DAOException.UNSUCCESS_EXECUTED, e);
+			throw new DAOException(DAOException.UNSUCCESS_EXECUTED);
 		} finally {
 			try {
 				serviceConnectionFactory.closeConnection(conn);
-				logger.trace("Connection closed");
+				logger.trace(DAOException.SUCCESS_CONNECTION_CLOSED);
 			} catch(SQLException e) {
-				logger.error("Cannot close connection", e);
+				logger.error(DAOException.UNSUCCESS_CONNECTION_CLOSED, e);
 			}
 		}
 		
@@ -192,54 +194,54 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public Seat update(Seat template) throws SQLException {
+	public Seat update(Seat template) throws DAOException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		Seat seat = null;
 		
 		try {
-			logger.trace("Open connection");
+			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
 			conn = serviceConnectionFactory.openConnection();
 			try {
-				logger.trace("Create prepared statement");
-				st = conn.prepareStatement(SQLRequestUpdate, Statement.RETURN_GENERATED_KEYS);
+				logger.trace(DAOException.PROCESS_CREATE_STATEMENT);
+				st = conn.prepareStatement(SQL_REQUEST_UPDATE, Statement.RETURN_GENERATED_KEYS);
 				st.setString(1, template.getSeatNumber());
 				st.setString(2, template.getSeatType());
 				st.setLong(3, template.getAircraftId());
 				st.setLong(4, template.getId());
 				st.execute();
 				try {
-					logger.trace("Get result set");
+					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.getGeneratedKeys();
 					rs.next();
-					seat = new Seat(rs.getLong("id"), rs.getString("seat_number"), rs.getString("seat_type"), rs.getLong("id_aircraft"));
-					logger.trace("Update seat " + seat);
+					seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
+					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
 					try {
 						rs.close();
-						logger.trace("Result set closed");
+						logger.trace(DAOException.SUCCESS_RESULT_SET_CLOSED);
 					} catch(SQLException e) {
-						logger.error("Cannot close result set", e);
+						logger.error(DAOException.UNSUCCESS_RESULT_SET_CLOSED, e);
 					}
 				}
 			} finally {
 				try {
 					serviceConnectionFactory.closeConnection(conn);
-					logger.trace("Prepared statement closed");
+					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
-					logger.error("Cannot close prepared statement", e);
+					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
 				}
 			}	
 		} catch(SQLException e) {
-			logger.error("Cannot update seat", e);
-			throw new SQLException("Cannot update seat", e);
+			logger.error(DAOException.UNSUCCESS_EXECUTED, e);
+			throw new DAOException(DAOException.UNSUCCESS_EXECUTED);
 		} finally {
 			try {
 				serviceConnectionFactory.closeConnection(conn);
-				logger.trace("Connection closed");
+				logger.trace(DAOException.SUCCESS_CONNECTION_CLOSED);
 			} catch(SQLException e) {
-				logger.error("Cannot close connection", e);
+				logger.error(DAOException.UNSUCCESS_CONNECTION_CLOSED, e);
 			}
 		}
 		
@@ -247,51 +249,51 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public Seat delete(Seat template) throws SQLException {
+	public Seat delete(Seat template) throws DAOException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		Seat seat = null;
 		
 		try {
-			logger.trace("Open connection");
+			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
 			conn = serviceConnectionFactory.openConnection();
 			try {
-				logger.trace("Create prepared statement");
-				st = conn.prepareStatement(SQLRequestDelete, Statement.RETURN_GENERATED_KEYS);
+				logger.trace(DAOException.PROCESS_CREATE_STATEMENT);
+				st = conn.prepareStatement(SQL_REQUEST_DELETE, Statement.RETURN_GENERATED_KEYS);
 				st.setLong(1, template.getId());
 				st.execute();
 				try {
-					logger.trace("Get result set");
+					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.getGeneratedKeys();
 					rs.next();
-					seat = new Seat(rs.getLong("id"), rs.getString("seat_number"), rs.getString("seat_type"), rs.getLong("id_aircraft"));
-					logger.trace("Delete seat " + seat);
+					seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
+					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
 					try {
 						rs.close();
-						logger.trace("Result set closed");
+						logger.trace(DAOException.SUCCESS_RESULT_SET_CLOSED);
 					} catch(SQLException e) {
-						logger.error("Cannot close result set", e);
+						logger.error(DAOException.UNSUCCESS_RESULT_SET_CLOSED, e);
 					}
 				}
 			} finally {
 				try {
 					serviceConnectionFactory.closeConnection(conn);
-					logger.trace("Prepared statement closed");
+					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
-					logger.error("Cannot close prepared statement", e);
+					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
 				}
 			}	
 		} catch(SQLException e) {
-			logger.error("Cannot delete seat", e);
-			throw new SQLException("Cannot delete seat", e);
+			logger.error(DAOException.UNSUCCESS_EXECUTED, e);
+			throw new DAOException(DAOException.UNSUCCESS_EXECUTED);
 		} finally {
 			try {
 				serviceConnectionFactory.closeConnection(conn);
-				logger.trace("Connection closed");
+				logger.trace(DAOException.SUCCESS_CONNECTION_CLOSED);
 			} catch(SQLException e) {
-				logger.error("Cannot close connection", e);
+				logger.error(DAOException.UNSUCCESS_CONNECTION_CLOSED, e);
 			}
 		}
 		

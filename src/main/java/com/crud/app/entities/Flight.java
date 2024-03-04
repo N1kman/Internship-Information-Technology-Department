@@ -14,15 +14,15 @@ public class Flight {
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	String code;
+	private String code;
 	
-	String placeDeparture;
+	private String placeDeparture;
 	
-	String placeArrival;
+	private String placeArrival;
 	
-	LocalDateTime dateDeparture;
+	private LocalDateTime dateDeparture;
 	
-	LocalDateTime dateArrival;
+	private LocalDateTime dateArrival;
 
 	@EqualsAndHashCode.Exclude
 	private Aircraft aircraft;

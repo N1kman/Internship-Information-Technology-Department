@@ -11,7 +11,7 @@ public class ServicePropsUtils {
 	    throw new IllegalStateException("Utility class");
 	}
 	
-	public static final Logger logger = LoggerFactory.getLogger(ServicePropsUtils.class.getName());
+	public static final Logger logger = LoggerFactory.getLogger(ServicePropsUtils.class);
 
 	public static PropertiesConfiguration loadProps(String filename) {
 		PropertiesConfiguration props = null;

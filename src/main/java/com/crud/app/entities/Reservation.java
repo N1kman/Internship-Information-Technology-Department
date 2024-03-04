@@ -15,7 +15,7 @@ public class Reservation {
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	
-	LocalDateTime reservationDate;
+	private LocalDateTime reservationDate;
 	
 	@EqualsAndHashCode.Exclude
 	private Ticket ticket;
