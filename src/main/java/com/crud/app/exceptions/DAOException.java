@@ -11,8 +11,6 @@ public class DAOException extends Exception {
 	
 	private static final long serialVersionUID = 7750652729810388739L;
 	
-	private String message;
-	
 	public static final String SUCCESS_CONNECTION_CLOSED = "Connection closed";
 	public static final String SUCCESS_STATEMENT_CLOSED = "Statement closed";
 	public static final String SUCCESS_RESULT_SET_CLOSED = "Result set closed";
@@ -29,6 +27,5 @@ public class DAOException extends Exception {
 	
 	public DAOException(String message) {
 		super(message);
-		this.message = message;
 	}
 }

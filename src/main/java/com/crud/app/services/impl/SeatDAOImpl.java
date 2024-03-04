@@ -20,7 +20,7 @@ public class SeatDAOImpl implements SeatDAO {
 	
 	ServiceConnectionFactory serviceConnectionFactory = new ServiceConnectionFactory();
 	
-	public static final Logger logger = LoggerFactory.getLogger(ServicePropsUtils.class);
+	public static final Logger logger = LoggerFactory.getLogger(SeatDAOImpl.class);
 	
 	public static final String SQL_REQUEST_FIND_ALL = "SELECT id, seat_number, seat_type, id_aircraft FROM seat";	
 	public static final String SQL_REQUEST_FIND_BY_ID = "SELECT id, seat_number, seat_type, id_aircraft FROM seat WHERE id=?";
@@ -64,7 +64,7 @@ public class SeatDAOImpl implements SeatDAO {
 				}
 			} finally {
 				try {
-					serviceConnectionFactory.closeConnection(conn);
+					st.close();
 					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
 					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
@@ -74,6 +74,7 @@ public class SeatDAOImpl implements SeatDAO {
 			logger.error(DAOException.UNSUCCESS_EXECUTED, e);
 			throw new DAOException(DAOException.UNSUCCESS_EXECUTED);
 		} finally {
+			
 			try {
 				serviceConnectionFactory.closeConnection(conn);
 				logger.trace(DAOException.SUCCESS_CONNECTION_CLOSED);
@@ -118,7 +119,7 @@ public class SeatDAOImpl implements SeatDAO {
 				}
 			} finally {
 				try {
-					serviceConnectionFactory.closeConnection(conn);
+					st.close();
 					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
 					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
@@ -172,7 +173,7 @@ public class SeatDAOImpl implements SeatDAO {
 				}
 			} finally {
 				try {
-					serviceConnectionFactory.closeConnection(conn);
+					st.close();
 					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
 					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
@@ -227,7 +228,7 @@ public class SeatDAOImpl implements SeatDAO {
 				}
 			} finally {
 				try {
-					serviceConnectionFactory.closeConnection(conn);
+					st.close();
 					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
 					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
@@ -279,7 +280,7 @@ public class SeatDAOImpl implements SeatDAO {
 				}
 			} finally {
 				try {
-					serviceConnectionFactory.closeConnection(conn);
+					st.close();
 					logger.trace(DAOException.SUCCESS_STATEMENT_CLOSED);
 				} catch(SQLException e) {
 					logger.error(DAOException.UNSUCCESS_STATEMENT_CLOSED, e);
