@@ -20,7 +20,7 @@ import com.crud.app.services.AircraftDAO;
 public class AircraftDAOImpl implements AircraftDAO {
 ServiceConnectionFactory serviceConnectionFactory = new ServiceConnectionFactory();
 	
-	public static final Logger logger = LoggerFactory.getLogger(SeatDAOImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(AircraftDAOImpl.class);
 	
 	public static final String SQL_REQUEST_FIND_ALL = "SELECT id, registration_number, model, company FROM aircraft";	
 	public static final String SQL_REQUEST_FIND_BY_ID = "SELECT aircraft.id, aircraft.registration_number, aircraft.model, aircraft.company, seat.id AS id_seat, seat.seat_number, seat.seat_type, seat.id_aircraft FROM aircraft LEFT JOIN seat ON aircraft.id=seat.id_aircraft WHERE aircraft.id=?";
