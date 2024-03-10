@@ -1,9 +1,9 @@
 package com.crud.app;
 
-import com.crud.app.entities.Seat;
+import com.crud.app.entities.Aircraft;
 import com.crud.app.exceptions.DAOException;
 import com.crud.app.services.DAO;
-import com.crud.app.services.impl.SeatDAOImpl;
+import com.crud.app.services.impl.AircraftDAOImpl;
 import com.crud.app.services.impl.ServiceConnectionFactory;
 
 public class App 
@@ -19,11 +19,11 @@ public class App
 //			e.printStackTrace();
 //		}
     	
-    	DAO<Seat> dao = new SeatDAOImpl();
+    	DAO<Aircraft> dao = new AircraftDAOImpl();
     	try {
     		ServiceConnectionFactory.setLocalDriverFromProperties();
 			
-			System.out.println(dao.findAll());
+			System.out.println(dao.findById(2));
 
 		} catch (DAOException | ClassNotFoundException e) {
 			e.printStackTrace();

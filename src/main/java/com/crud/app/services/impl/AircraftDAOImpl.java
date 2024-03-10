@@ -1,40 +1,47 @@
 package com.crud.app.services.impl;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.crud.app.entities.Aircraft;
 import com.crud.app.entities.Seat;
 import com.crud.app.exceptions.DAOException;
-import com.crud.app.services.SeatDAO;
+import com.crud.app.services.AircraftDAO;
 
-public class SeatDAOImpl implements SeatDAO {
-	
-	ServiceConnectionFactory serviceConnectionFactory = new ServiceConnectionFactory();
+public class AircraftDAOImpl implements AircraftDAO {
+ServiceConnectionFactory serviceConnectionFactory = new ServiceConnectionFactory();
 	
 	public static final Logger logger = LoggerFactory.getLogger(SeatDAOImpl.class);
 	
-	public static final String SQL_REQUEST_FIND_ALL = "SELECT id, seat_number, seat_type, id_aircraft FROM seat";	
-	public static final String SQL_REQUEST_FIND_BY_ID = "SELECT id, seat_number, seat_type, id_aircraft FROM seat WHERE id=?";
-	public static final String SQL_REQUEST_INSERT = "INSERT INTO seat (seat_number, seat_type, id_aircraft) VALUES (?, ?, ?)";
-	public static final String SQL_REQUEST_UPDATE = "UPDATE seat SET seat_number=?, seat_type=?, id_aircraft=? WHERE id=?";
-	public static final String SQL_REQUEST_DELETE = "DELETE FROM seat WHERE id=?";
+	public static final String SQL_REQUEST_FIND_ALL = "SELECT id, registration_number, model, company FROM aircraft";	
+	public static final String SQL_REQUEST_FIND_BY_ID = "SELECT aircraft.id, aircraft.registration_number, aircraft.model, aircraft.company, seat.id AS id_seat, seat.seat_number, seat.seat_type, seat.id_aircraft FROM aircraft LEFT JOIN seat ON aircraft.id=seat.id_aircraft WHERE aircraft.id=?";
+	public static final String SQL_REQUEST_INSERT = "INSERT INTO aircraft (registration_number, model, company) VALUES (?, ?, ?)";
+	public static final String SQL_REQUEST_UPDATE = "UPDATE aircraft SET registration_number=?, model=?, company=? WHERE id=?";
+	public static final String SQL_REQUEST_DELETE = "DELETE FROM aircraft WHERE id=?";
 	
 	public static final String COLUMN_ID = "id";
+	public static final String COLUMN_REGISTRATION_NUMBER = "registration_number";
+	public static final String COLUMN_MODEL = "model";
+	public static final String COLUMN_COMPANY = "company";
+	
+	public static final String COLUMN_ID_SEAT = "id_seat";
 	public static final String COLUMN_SEAT_NUMBER = "seat_number";
 	public static final String COLUMN_SEAT_TYPE = "seat_type";
 	public static final String COLUMN_ID_AIRCRAFT = "id_aircraft";
 
 	@Override
-	public Seat findById(long id) throws DAOException {
+	public Aircraft findById(long id) throws DAOException {
 		Connection conn = null;
+		Aircraft aircraft = null;
 		Seat seat = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -49,10 +56,16 @@ public class SeatDAOImpl implements SeatDAO {
 				try {
 					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.executeQuery();
-					if(rs.next()) {
-						seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
-						logger.trace(DAOException.SUCCESS_EXECUTED);
+					while(rs.next()) {
+						if(aircraft == null) {
+							aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER), rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>());
+						}
+						if(rs.getLong(COLUMN_ID_SEAT) != 0) {
+							seat = new Seat(rs.getLong(COLUMN_ID_SEAT), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
+							aircraft.getSeats().add(seat);
+						}
 					}
+					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
 					try {
 						rs.close();
@@ -83,16 +96,16 @@ public class SeatDAOImpl implements SeatDAO {
 		}
 		
 		
-		return seat;
+		return aircraft;
 	}
 
 	@Override
-	public List<Seat> findAll() throws DAOException {
+	public List<Aircraft> findAll() throws DAOException {
 		Connection conn = null;
-		Seat seat = null;
+		Aircraft aircraft = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		List<Seat> list= new LinkedList<>();
+		List<Aircraft> list= new LinkedList<>();
 		
 		try {
 			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
@@ -104,8 +117,8 @@ public class SeatDAOImpl implements SeatDAO {
 					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.executeQuery();
 					while(rs.next()) {
-						seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
-						list.add(seat);
+						aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER), rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>());
+						list.add(aircraft);
 					}
 					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
@@ -141,11 +154,11 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public Seat insert(Seat template) throws DAOException {
+	public Aircraft insert(Aircraft template) throws DAOException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		Seat seat = null;
+		Aircraft aircraft = null;
 		
 		try {
 			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
@@ -153,15 +166,15 @@ public class SeatDAOImpl implements SeatDAO {
 			try {
 				logger.trace(DAOException.PROCESS_CREATE_STATEMENT);
 				st = conn.prepareStatement(SQL_REQUEST_INSERT, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, template.getSeatNumber());
-				st.setString(2, template.getSeatType());
-				st.setLong(3, template.getAircraftId());
+				st.setString(1, template.getRegistrationNumber());
+				st.setString(2, template.getModel());
+				st.setString(3, template.getCompany());
 				st.execute();
 				try {
 					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.getGeneratedKeys();
 					rs.next();
-					seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
+					aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER), rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>(template.getSeats()));
 					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
 					try {
@@ -191,15 +204,15 @@ public class SeatDAOImpl implements SeatDAO {
 			}
 		}
 		
-		return seat;
+		return aircraft;
 	}
 
 	@Override
-	public Seat update(Seat template) throws DAOException {
+	public Aircraft update(Aircraft template) throws DAOException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		Seat seat = null;
+		Aircraft aircraft = null;
 		
 		try {
 			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
@@ -207,16 +220,16 @@ public class SeatDAOImpl implements SeatDAO {
 			try {
 				logger.trace(DAOException.PROCESS_CREATE_STATEMENT);
 				st = conn.prepareStatement(SQL_REQUEST_UPDATE, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, template.getSeatNumber());
-				st.setString(2, template.getSeatType());
-				st.setLong(3, template.getAircraftId());
+				st.setString(1, template.getRegistrationNumber());
+				st.setString(2, template.getModel());
+				st.setString(3, template.getCompany());
 				st.setLong(4, template.getId());
 				st.execute();
 				try {
 					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.getGeneratedKeys();
 					rs.next();
-					seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
+					aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER), rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>(template.getSeats()));
 					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
 					try {
@@ -246,15 +259,15 @@ public class SeatDAOImpl implements SeatDAO {
 			}
 		}
 		
-		return seat;
+		return aircraft;
 	}
 
 	@Override
-	public Seat delete(Seat template) throws DAOException {
+	public Aircraft delete(Aircraft template) throws DAOException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		Seat seat = null;
+		Aircraft aircraft = null;
 		
 		try {
 			logger.trace(DAOException.PROCESS_OPEN_CONNECTION);
@@ -268,7 +281,7 @@ public class SeatDAOImpl implements SeatDAO {
 					logger.trace(DAOException.PROCESS_GET_RESULT_SET);
 					rs = st.getGeneratedKeys();
 					rs.next();
-					seat = new Seat(rs.getLong(COLUMN_ID), rs.getString(COLUMN_SEAT_NUMBER), rs.getString(COLUMN_SEAT_TYPE), rs.getLong(COLUMN_ID_AIRCRAFT));
+					aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER), rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>(template.getSeats()));
 					logger.trace(DAOException.SUCCESS_EXECUTED);
 				} finally {
 					try {
@@ -298,7 +311,6 @@ public class SeatDAOImpl implements SeatDAO {
 			}
 		}
 		
-		return seat;
+		return aircraft;
 	}
-
 }
