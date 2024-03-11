@@ -1,7 +1,11 @@
 package com.crud.app.exceptions;
 
 public class Messages {
-
+	
+	private Messages() {
+		throw new IllegalStateException("Static class");
+	}
+	
 	public static final String SUCCESS_CONNECTION_CLOSED = "Connection closed";
 	public static final String SUCCESS_STATEMENT_CLOSED = "Statement closed";
 	public static final String SUCCESS_RESULT_SET_CLOSED = "Result set closed";
