@@ -17,10 +17,8 @@ public class Seat {
 	
 	private String seatType;
 	
-	private Long aircraftId;
-	
-	//@EqualsAndHashCode.Exclude
-	//private Aircraft aircraft;
+	@EqualsAndHashCode.Exclude
+	private Aircraft aircraft;
 	
 	//@EqualsAndHashCode.Exclude
 	//private Set<Ticket> tickets = new HashSet<>();

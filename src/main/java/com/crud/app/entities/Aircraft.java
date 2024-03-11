@@ -1,5 +1,6 @@
 package com.crud.app.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Aircraft {
-	
+
+	public Aircraft(Aircraft aircraft) {
+		this.id = aircraft.id;
+		this.registrationNumber = aircraft.registrationNumber;
+		this.model = aircraft.model;
+		this.company = aircraft.company;
+		this.seats = new HashSet<>(aircraft.getSeats());
+	}
+
 	@EqualsAndHashCode.Exclude
 	private Long id;
 	

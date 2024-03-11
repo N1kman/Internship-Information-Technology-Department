@@ -23,8 +23,6 @@ public class Flight {
 	private LocalDateTime dateDeparture;
 	
 	private LocalDateTime dateArrival;
-	
-	private Long aircraftId;
 
 	@EqualsAndHashCode.Exclude
 	private Aircraft aircraft;
