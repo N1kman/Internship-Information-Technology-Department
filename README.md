@@ -25,7 +25,7 @@
 Условие :page_facing_up: : 
   - клиентская часть с использованием JSP
 
-Ветка для задания - TASK3 ❌
+Ветка для задания - <a href="https://github.com/N1kman/Internship-Information-Technology-Department/tree/Task3?tab=readme-ov-file">TASK3</a> ✔️ 
 
 ### Задание 4️⃣
 
