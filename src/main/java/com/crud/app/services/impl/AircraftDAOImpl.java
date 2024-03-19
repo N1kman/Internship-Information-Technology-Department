@@ -88,7 +88,6 @@ public class AircraftDAOImpl implements AircraftDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -146,7 +145,6 @@ public class AircraftDAOImpl implements AircraftDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -197,7 +195,6 @@ public class AircraftDAOImpl implements AircraftDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -249,7 +246,6 @@ public class AircraftDAOImpl implements AircraftDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -298,7 +294,6 @@ public class AircraftDAOImpl implements AircraftDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 

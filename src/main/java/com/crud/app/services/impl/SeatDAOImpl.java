@@ -81,7 +81,6 @@ public class SeatDAOImpl implements SeatDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -134,7 +133,6 @@ public class SeatDAOImpl implements SeatDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -185,7 +183,6 @@ public class SeatDAOImpl implements SeatDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -237,7 +234,6 @@ public class SeatDAOImpl implements SeatDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -286,7 +282,6 @@ public class SeatDAOImpl implements SeatDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
