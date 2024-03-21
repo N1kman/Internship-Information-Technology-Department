@@ -35,10 +35,11 @@ public class ServiceConnectionFactory implements ConnectionFactory {
 	
 	@Override
 	public Connection openConnection() throws SQLException {
-		PropertiesConfiguration props = ServicePropsUtils.loadProps(PROPERTY_FILE_PATH);
-		return DriverManager.getConnection( props.getString(PROPERTY_URL),
-											props.getString(PROPERTY_USERNAME),
-											props.getString(PROPERTY_PASSWORD));
+		//PropertiesConfiguration props = ServicePropsUtils.loadProps(PROPERTY_FILE_PATH);
+		//return DriverManager.getConnection( props.getString(PROPERTY_URL),
+		//									props.getString(PROPERTY_USERNAME),
+		//									props.getString(PROPERTY_PASSWORD));
+		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/airport", "postgres", "192837465");
 	}
 
 	@Override

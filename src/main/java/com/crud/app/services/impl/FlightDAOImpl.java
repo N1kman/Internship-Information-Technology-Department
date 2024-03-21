@@ -100,7 +100,6 @@ public class FlightDAOImpl implements FlightDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -163,7 +162,6 @@ public class FlightDAOImpl implements FlightDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -219,7 +217,6 @@ public class FlightDAOImpl implements FlightDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -275,7 +272,6 @@ public class FlightDAOImpl implements FlightDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
@@ -326,7 +322,6 @@ public class FlightDAOImpl implements FlightDAO {
 
 			} catch (SQLException e) {
 				logger.error(Messages.UNSUCCESS_CLOSED, e);
-				throw e;
 			}
 		}
 
