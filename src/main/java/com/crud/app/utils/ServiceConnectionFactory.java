@@ -1,13 +1,10 @@
-package com.crud.app.services.impl;
+package com.crud.app.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
-
-import com.crud.app.services.ConnectionFactory;
-import com.crud.app.utils.ServicePropsUtils;
 
 
 public class ServiceConnectionFactory implements ConnectionFactory {
@@ -35,11 +32,10 @@ public class ServiceConnectionFactory implements ConnectionFactory {
 	
 	@Override
 	public Connection openConnection() throws SQLException {
-		//PropertiesConfiguration props = ServicePropsUtils.loadProps(PROPERTY_FILE_PATH);
-		//return DriverManager.getConnection( props.getString(PROPERTY_URL),
-		//									props.getString(PROPERTY_USERNAME),
-		//									props.getString(PROPERTY_PASSWORD));
-		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/airport", "postgres", "192837465");
+		PropertiesConfiguration props = ServicePropsUtils.loadProps(PROPERTY_FILE_PATH);
+		return DriverManager.getConnection( props.getString(PROPERTY_URL),
+											props.getString(PROPERTY_USERNAME),
+											props.getString(PROPERTY_PASSWORD));
 	}
 
 	@Override

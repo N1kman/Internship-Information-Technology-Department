@@ -1,4 +1,4 @@
-package com.crud.app.services;
+package com.crud.app.utils;
 
 import java.sql.Connection;
 import java.sql.SQLException;

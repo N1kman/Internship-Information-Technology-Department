@@ -1,4 +1,4 @@
-package com.crud.app.services.impl;
+package com.crud.app.services.DAO.Impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,8 @@ import com.crud.app.entities.Aircraft;
 import com.crud.app.entities.Flight;
 import com.crud.app.entities.Seat;
 import com.crud.app.exceptions.Messages;
-import com.crud.app.services.FlightDAO;
+import com.crud.app.services.DAO.FlightDAO;
+import com.crud.app.utils.ServiceConnectionFactory;
 
 public class FlightDAOImpl implements FlightDAO {
 
@@ -181,12 +182,7 @@ public class FlightDAOImpl implements FlightDAO {
 
 			logger.trace(Messages.PROCESS_CREATE_STATEMENT);
 			st = conn.prepareStatement(SQL_REQUEST_INSERT, Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, template.getCode());
-			st.setString(2, template.getPlaceDeparture());
-			st.setString(3, template.getPlaceArrival());
-			st.setTimestamp(4, Timestamp.valueOf(template.getDateDeparture()));
-			st.setTimestamp(5, Timestamp.valueOf(template.getDateArrival()));
-			st.setLong(6, template.getAircraft().getId());
+			setFields(st, template);
 			st.execute();
 
 			logger.trace(Messages.PROCESS_GET_RESULT_SET);
@@ -236,12 +232,8 @@ public class FlightDAOImpl implements FlightDAO {
 
 			logger.trace(Messages.PROCESS_CREATE_STATEMENT);
 			st = conn.prepareStatement(SQL_REQUEST_UPDATE, Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, template.getCode());
-			st.setString(2, template.getPlaceDeparture());
-			st.setString(3, template.getPlaceArrival());
-			st.setTimestamp(4, Timestamp.valueOf(template.getDateDeparture()));
-			st.setTimestamp(5, Timestamp.valueOf(template.getDateArrival()));
-			st.setLong(6, template.getAircraft().getId());
+			setFields(st, template);
+			st.setLong(7, template.getId());
 			st.execute();
 
 			logger.trace(Messages.PROCESS_GET_RESULT_SET);
@@ -326,6 +318,15 @@ public class FlightDAOImpl implements FlightDAO {
 		}
 
 		return flight;
+	}
+	
+	private void setFields(PreparedStatement st, Flight template) throws SQLException {
+		st.setString(1, template.getCode());
+		st.setString(2, template.getPlaceDeparture());
+		st.setString(3, template.getPlaceArrival());
+		st.setTimestamp(4, Timestamp.valueOf(template.getDateDeparture()));
+		st.setTimestamp(5, Timestamp.valueOf(template.getDateArrival()));
+		st.setLong(6, template.getAircraft().getId());
 	}
 
 }
