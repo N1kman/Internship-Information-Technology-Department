@@ -23,8 +23,7 @@ public class DatabaseAPIFlightImpl implements DatabaseAPIFlight {
 		    DAO<Flight> service = new FlightDAOImpl();
 		    flight = service.findById(id);
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return flight;
 	}
@@ -36,8 +35,7 @@ public class DatabaseAPIFlightImpl implements DatabaseAPIFlight {
 		    DAO<Flight> service = new FlightDAOImpl();
 		    flights = service.findAll();
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return flights;
 	}
@@ -49,8 +47,7 @@ public class DatabaseAPIFlightImpl implements DatabaseAPIFlight {
 		    DAO<Flight> service = new FlightDAOImpl();
 		    flight = service.insert(template);
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return flight;
 	}
@@ -62,8 +59,7 @@ public class DatabaseAPIFlightImpl implements DatabaseAPIFlight {
 		    DAO<Flight> service = new FlightDAOImpl();
 		    flight = service.update(template);
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return flight;
 	}
@@ -75,8 +71,7 @@ public class DatabaseAPIFlightImpl implements DatabaseAPIFlight {
 		    DAO<Flight> service = new FlightDAOImpl();
 		    flight = service.delete(template);
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return flight;
 	}

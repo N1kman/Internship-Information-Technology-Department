@@ -23,8 +23,7 @@ public class DatabaseAPISeatImpl implements DatabaseAPISeat {
 		    DAO<Seat> service = new SeatDAOImpl();
 			seat = service.findById(id);
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return seat;
 	}
@@ -36,8 +35,7 @@ public class DatabaseAPISeatImpl implements DatabaseAPISeat {
 		    DAO<Seat> service = new SeatDAOImpl();
 			seats = service.findAll();
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return seats;
 	}
@@ -49,8 +47,7 @@ public class DatabaseAPISeatImpl implements DatabaseAPISeat {
 		    DAO<Seat> service = new SeatDAOImpl();
 			seat = service.insert(template);
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return seat;
 	}
@@ -62,8 +59,7 @@ public class DatabaseAPISeatImpl implements DatabaseAPISeat {
 		    DAO<Seat> service = new SeatDAOImpl();
 			seat = service.update(template);
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return seat;
 	}
@@ -75,8 +71,7 @@ public class DatabaseAPISeatImpl implements DatabaseAPISeat {
 		    DAO<Seat> service = new SeatDAOImpl();
 			seat = service.delete(template);
 		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED);
-			e.printStackTrace();
+			logger.error(Messages.UNSUCCESS_EXECUTED, e);
 		}
     	return seat;
 	}
