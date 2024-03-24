@@ -1,4 +1,4 @@
-package com.crud.app.services.DAO;
+package com.crud.app.services.dao;
 
 import com.crud.app.entities.Seat;
 

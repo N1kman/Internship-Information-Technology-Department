@@ -1,15 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="5.0">
 
 	<servlet>
-		<description></description>
-		<display-name>Home</display-name>
-		<servlet-name>Home</servlet-name>
-		<servlet-class>com.crud.app.servlets.Home</servlet-class>
+		<servlet-name>Seats</servlet-name>
+		<jsp-file>/WEB-INF/pages/seats.jsp</jsp-file>
 	</servlet>
-	
 	<servlet-mapping>
-		<servlet-name>Home</servlet-name>
-		<url-pattern>/home</url-pattern>
+		<servlet-name>Seats</servlet-name>
+		<url-pattern>/seats</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SeatServlet</servlet-name>
+		<servlet-class>com.crud.app.servlets.SeatServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SeatServlet</servlet-name>
+		<url-pattern>/seats/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Aircrafts</servlet-name>
+		<jsp-file>/WEB-INF/pages/aircrafts.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Aircrafts</servlet-name>
+		<url-pattern>/aircrafts</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AircraftServlet</servlet-name>
+		<servlet-class>com.crud.app.servlets.AircraftServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AircraftServlet</servlet-name>
+		<url-pattern>/aircrafts/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Flights</servlet-name>
+		<jsp-file>/WEB-INF/pages/flights.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Flights</servlet-name>
+		<url-pattern>/flights</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FlightServlet</servlet-name>
+		<servlet-class>com.crud.app.servlets.FlightServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FlightServlet</servlet-name>
+		<url-pattern>/flights/*</url-pattern>
+	</servlet-mapping>
+
 </web-app>

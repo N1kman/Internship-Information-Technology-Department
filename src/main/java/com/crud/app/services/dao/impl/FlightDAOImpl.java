@@ -1,4 +1,4 @@
-package com.crud.app.services.DAO.Impl;
+package com.crud.app.services.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ import com.crud.app.entities.Aircraft;
 import com.crud.app.entities.Flight;
 import com.crud.app.entities.Seat;
 import com.crud.app.exceptions.Messages;
-import com.crud.app.services.DAO.FlightDAO;
+import com.crud.app.services.dao.FlightDAO;
 import com.crud.app.utils.ServiceConnectionFactory;
 
 public class FlightDAOImpl implements FlightDAO {

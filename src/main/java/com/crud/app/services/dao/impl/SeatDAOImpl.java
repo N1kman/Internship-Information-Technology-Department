@@ -1,4 +1,4 @@
-package com.crud.app.services.DAO.Impl;
+package com.crud.app.services.dao.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.crud.app.entities.Aircraft;
 import com.crud.app.entities.Seat;
 import com.crud.app.exceptions.Messages;
-import com.crud.app.services.DAO.SeatDAO;
+import com.crud.app.services.dao.SeatDAO;
 import com.crud.app.utils.ServiceConnectionFactory;
 
 public class SeatDAOImpl implements SeatDAO {

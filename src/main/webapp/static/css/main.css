@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+* {
+	margin: 0 auto;
+	padding: 0;
+	background: #C7C2FF;
+	width: 70%;
+	color: #021B7E;
+}
+
+.main {
+	text-align: center;
+	font-size: 20px;
+	padding: 100px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.main .choose {
+	display: block;
+	text-decoration: none;
+	padding: 10px 10px;
+	margin: 20px;
+	transition: all 0.3s ease;
+}
+
+.main .choose:hover {
+	text-decoration: none;
+	text-decoration: underline;
+	color: #FF4F6C;
+}

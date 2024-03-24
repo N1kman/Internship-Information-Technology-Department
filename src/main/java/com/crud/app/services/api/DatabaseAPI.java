@@ -1,4 +1,4 @@
-package com.crud.app.services.API;
+package com.crud.app.services.api;
 
 import java.util.List;
 

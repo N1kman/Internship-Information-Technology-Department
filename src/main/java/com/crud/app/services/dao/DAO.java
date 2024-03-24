@@ -1,4 +1,4 @@
-package com.crud.app.services.DAO;
+package com.crud.app.services.dao;
 
 import java.sql.SQLException;
 import java.util.List;
