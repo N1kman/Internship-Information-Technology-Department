@@ -14,7 +14,8 @@ public class FlightServlet extends HttpServlet {
     public FlightServlet() {
         super();
     }
-
+    
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = (request.getPathInfo().split("/"))[1];
 		request.setAttribute("id", id);
