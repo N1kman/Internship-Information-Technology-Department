@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.main {
+	padding-top: 0px;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.main .list {
+	margin: 40px;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0px;
+}
+
+.main .list a {
+	display: block;
+	text-decoration: none;
+	margin: 10px auto;
+	padding: 10px 0px;
+	width: 50%;
+}
+
+.main .list a:hover {
+	border: solid;
+	border-radius: 10px;
+	color: #FF4F6C;
+}
+

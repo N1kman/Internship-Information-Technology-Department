@@ -14,6 +14,7 @@
 	<meta charset="UTF-8">
 	<title>Flights</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/list.css">
 </head>
 <body>	
 	
@@ -24,7 +25,7 @@
 	%>
 	
 	<div class="main">
-		<div class="flight-list">
+		<div class="list">
 			<%
 				if(flights != null) {
 					 for (Flight flight : flights) {

@@ -12,6 +12,7 @@
 	<meta charset="UTF-8">
 	<title>Seats</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/list.css">
 </head>
 <body>	
 	
@@ -22,7 +23,7 @@
 	%>
 	
 	<div class="main">
-		<div class="seat-list">
+		<div class="list">
 			<%
 				if(seats != null) {
 					 for (Seat seat : seats) {

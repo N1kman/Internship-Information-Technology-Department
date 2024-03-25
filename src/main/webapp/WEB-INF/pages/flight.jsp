@@ -13,6 +13,7 @@
 	<meta charset="UTF-8">
 	<title>Flight</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/elem.css">
 </head>
 <body>	
 	
@@ -24,7 +25,7 @@
 	%>
 	
 	<div class="main">
-		<div class="seat">
+		<div class="elem">
 		<%
 			out.println("<h2>" + flight.getCode() + " " + flight.getPlaceDeparture() + "-" + flight.getPlaceArrival() + "</h2>");
 			out.println("<p>" + "Date departure: " + flight.getDateDeparture() + "</p>");

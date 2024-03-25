@@ -12,6 +12,7 @@
 	<meta charset="UTF-8">
 	<title>Aircraft</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/elem.css">
 </head>
 <body>
 	
@@ -23,7 +24,7 @@
 	%>
 	
 	<div class="main">
-		<div class="seat">
+		<div class="elem">
 		<%
 			out.println("<h2>" + aircraft.getRegistrationNumber() +  " " + aircraft.getModel() + "</h2>");
 			out.println("<p>" + "Company: " + aircraft.getCompany() + "</p>");

@@ -13,6 +13,7 @@
 	<meta charset="UTF-8">
 	<title>Aircrafts</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/list.css">
 </head>
 <body>	
 	
@@ -23,7 +24,7 @@
 	%>
 	
 	<div class="main">
-		<div class="aircraft-list">
+		<div class="list">
 			<%
 				if(aircrafts != null) {
 					 for (Aircraft aircraft : aircrafts) {
