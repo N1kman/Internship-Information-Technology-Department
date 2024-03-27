@@ -35,7 +35,7 @@
 		%>
 		</div>
 		<div class="back">
-			<a href="/aircrafts">Back</a>
+			<a href="javascript:history.back()">Back</a>
 		</div>
 	</div>
 

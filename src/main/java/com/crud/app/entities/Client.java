@@ -1,6 +1,5 @@
 package com.crud.app.entities;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -25,8 +24,8 @@ public class Client {
 	private String patronymic;
 	
 	@EqualsAndHashCode.Exclude
-	private Set<Flight> flights = new HashSet<>();
+	private Set<Flight> flights = null;
 	
-	@EqualsAndHashCode.Exclude
-	private Set<Reservation> reservation = new HashSet<>();
+	//@EqualsAndHashCode.Exclude
+	//private Set<Reservation> reservation = new HashSet<>();
 }

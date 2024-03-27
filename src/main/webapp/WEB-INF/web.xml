@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="https://jakarta.ee/xml/ns/jakartaee"
-	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="5.0">
-
 	<servlet>
 		<servlet-name>Seats</servlet-name>
-		<jsp-file>/WEB-INF/pages/seats.jsp</jsp-file>
+		<jsp-file>/WEB-INF/pages/entities/seats.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Seats</servlet-name>
 		<url-pattern>/seats</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>SeatServlet</servlet-name>
 		<servlet-class>com.crud.app.servlets.SeatServlet</servlet-class>
@@ -22,16 +19,14 @@
 		<servlet-name>SeatServlet</servlet-name>
 		<url-pattern>/seats/*</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>Aircrafts</servlet-name>
-		<jsp-file>/WEB-INF/pages/aircrafts.jsp</jsp-file>
+		<jsp-file>/WEB-INF/pages/entities/aircrafts.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Aircrafts</servlet-name>
 		<url-pattern>/aircrafts</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>AircraftServlet</servlet-name>
 		<servlet-class>com.crud.app.servlets.AircraftServlet</servlet-class>
@@ -40,16 +35,14 @@
 		<servlet-name>AircraftServlet</servlet-name>
 		<url-pattern>/aircrafts/*</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>Flights</servlet-name>
-		<jsp-file>/WEB-INF/pages/flights.jsp</jsp-file>
+		<jsp-file>/WEB-INF/pages/entities/flights.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Flights</servlet-name>
 		<url-pattern>/flights</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>FlightServlet</servlet-name>
 		<servlet-class>com.crud.app.servlets.FlightServlet</servlet-class>
@@ -57,6 +50,103 @@
 	<servlet-mapping>
 		<servlet-name>FlightServlet</servlet-name>
 		<url-pattern>/flights/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Clients</servlet-name>
+		<jsp-file>/WEB-INF/pages/entities/clients.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Clients</servlet-name>
+		<url-pattern>/clients</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ClientServlet</servlet-name>
+		<servlet-class>com.crud.app.servlets.ClientServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ClientServlet</servlet-name>
+		<url-pattern>/clients/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>InputSeat</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/inputSeat.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InputSeat</servlet-name>
+		<url-pattern>/inputSeat</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InsertSeat</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/insertSeat.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertSeat</servlet-name>
+		<url-pattern>/insertSeat</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InputFlight</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/inputFlight.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InputFlight</servlet-name>
+		<url-pattern>/inputFlight</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InsertFlight</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/insertFlight.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertFlight</servlet-name>
+		<url-pattern>/insertFlight</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InputAircraft</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/inputAircraft.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InputAircraft</servlet-name>
+		<url-pattern>/inputAircraft</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InsertAircraft</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/insertAircraft.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertAircraft</servlet-name>
+		<url-pattern>/insertAircraft</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InputClient</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/inputClient.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InputClient</servlet-name>
+		<url-pattern>/inputClient</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InsertClient</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/insertClient.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertClient</servlet-name>
+		<url-pattern>/insertClient</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InsertFlightToClient</servlet-name>
+		<jsp-file>/WEB-INF/pages/insert/insertFlightToClient.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertFlightToClient</servlet-name>
+		<url-pattern>/InsertFlightToClient</url-pattern>
 	</servlet-mapping>
 
 </web-app>

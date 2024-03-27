@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,45 +12,41 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.crud.app.entities.Aircraft;
 import com.crud.app.entities.Flight;
-import com.crud.app.entities.Seat;
 import com.crud.app.exceptions.Messages;
-import com.crud.app.services.dao.FlightDAO;
+import com.crud.app.entities.Client;
+import com.crud.app.services.dao.ClientDAO;
 import com.crud.app.utils.ServiceConnectionFactory;
 
-public class FlightDAOImpl implements FlightDAO {
+public class ClientDAOImpl implements ClientDAO {
 
 	ServiceConnectionFactory serviceConnectionFactory = new ServiceConnectionFactory();
 
-	public static final Logger logger = LoggerFactory.getLogger(FlightDAOImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(ClientDAOImpl.class);
 
-	public static final String SQL_REQUEST_FIND_ALL = "SELECT flight.id, flight.code, flight.place_departure, flight.place_arrival, flight.date_departure, flight.date_arrival, aircraft.id AS id_aircraft, aircraft.registration_number, aircraft.model, aircraft.company, seat.id AS id_seat, seat.seat_number, seat.seat_type FROM flight LEFT JOIN aircraft ON aircraft.id=flight.id_aircraft LEFT JOIN seat ON flight.id_aircraft=seat.id_aircraft";
-	public static final String SQL_REQUEST_FIND_BY_ID = "SELECT flight.id, flight.code, flight.place_departure, flight.place_arrival, flight.date_departure, flight.date_arrival, aircraft.id AS id_aircraft, aircraft.registration_number, aircraft.model, aircraft.company, seat.id AS id_seat, seat.seat_number, seat.seat_type FROM flight LEFT JOIN aircraft ON aircraft.id=flight.id_aircraft LEFT JOIN seat ON flight.id_aircraft=seat.id_aircraft WHERE flight.id=?";
-	public static final String SQL_REQUEST_INSERT = "INSERT INTO flight (code, place_departure, place_arrival, date_departure, date_arrival, id_aircraft) VALUES (?, ?, ?, ?, ?, ?)";
-	public static final String SQL_REQUEST_UPDATE = "UPDATE flight SET code=?, place_departure=?, place_arrival=?, date_departure=?, date_arrival=?, id_aircraft=? WHERE id=?";
-	public static final String SQL_REQUEST_DELETE = "DELETE FROM flight WHERE id=?";
+	public static final String SQL_REQUEST_FIND_ALL = "SELECT client.id, client.passport_id, client.firstname, client.surname, client.patronymic, flight.id AS id_flight, flight.code, flight.place_departure, flight.place_arrival, flight.date_departure, flight.date_arrival FROM client LEFT JOIN history ON client.id=history.id_client LEFT JOIN flight ON flight.id=history.id_flight";
+	public static final String SQL_REQUEST_FIND_BY_ID = "SELECT client.id, client.passport_id, client.firstname, client.surname, client.patronymic, flight.id AS id_flight, flight.code, flight.place_departure, flight.place_arrival, flight.date_departure, flight.date_arrival FROM client LEFT JOIN history ON client.id=history.id_client LEFT JOIN flight ON flight.id=history.id_flight WHERE client.id=?";
+	public static final String SQL_REQUEST_INSERT = "INSERT INTO client (passport_id, firstname, surname, patronymic) VALUES (?, ?, ?, ?)";
+	public static final String SQL_REQUEST_UPDATE = "UPDATE client SET passport_id=?, firstname=?, surname=?, patronymic=? WHERE id=?";
+	public static final String SQL_REQUEST_DELETE = "DELETE FROM client WHERE id=?";
 
 	public static final String COLUMN_ID = "id";
+	public static final String COLUMN_PASSPORT_ID = "passport_id";
+	public static final String COLUMN_FISRTNAME = "firstname";
+	public static final String COLUMN_SURNAME = "surname";
+	public static final String COLUMN_PATRONYMIC = "patronymic";
+
+	public static final String COLUMN_ID_FLIGHT = "id_flight";
 	public static final String COLUMN_CODE = "code";
 	public static final String COLUMN_PLACE_DEPARTURE = "place_departure";
 	public static final String COLUMN_PLACE_ARRIVAL = "place_arrival";
 	public static final String COLUMN_DATE_DEPARTURE = "date_departure";
 	public static final String COLUMN_DATE_ARRIVAL = "date_arrival";
 
-	public static final String COLUMN_REGISTRATION_NUMBER = "registration_number";
-	public static final String COLUMN_MODEL = "model";
-	public static final String COLUMN_COMPANY = "company";
-
-	public static final String COLUMN_ID_SEAT = "id_seat";
-	public static final String COLUMN_SEAT_NUMBER = "seat_number";
-	public static final String COLUMN_SEAT_TYPE = "seat_type";
-
 	@Override
-	public Flight findById(long id) throws SQLException {
+	public Client findById(long id) throws SQLException {
 		Connection conn = null;
-		Aircraft aircraft = null;
-		Seat seat = null;
+		Client client = null;
 		Flight flight = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -66,19 +61,19 @@ public class FlightDAOImpl implements FlightDAO {
 
 			logger.trace(Messages.PROCESS_GET_RESULT_SET);
 			rs = st.executeQuery();
+
 			while (rs.next()) {
-				if (flight == null) {
-					aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER),
-							rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>());
-					flight = new Flight(rs.getLong(COLUMN_ID), rs.getString(COLUMN_CODE),
+				if (client == null) {
+					client = new Client(rs.getLong(COLUMN_ID), rs.getString(COLUMN_PASSPORT_ID),
+							rs.getString(COLUMN_FISRTNAME), rs.getString(COLUMN_SURNAME),
+							rs.getString(COLUMN_PATRONYMIC), new HashSet<>());
+				}
+				if (rs.getLong(COLUMN_ID_FLIGHT) != 0) {
+					flight = new Flight(rs.getLong(COLUMN_ID_FLIGHT), rs.getString(COLUMN_CODE),
 							rs.getString(COLUMN_PLACE_DEPARTURE), rs.getString(COLUMN_PLACE_ARRIVAL),
 							rs.getTimestamp(COLUMN_DATE_DEPARTURE).toLocalDateTime(),
-							rs.getTimestamp(COLUMN_DATE_ARRIVAL).toLocalDateTime(), aircraft);
-				}
-				if (rs.getLong(COLUMN_ID_SEAT) != 0) {
-					seat = new Seat(rs.getLong(COLUMN_ID_SEAT), rs.getString(COLUMN_SEAT_NUMBER),
-							rs.getString(COLUMN_SEAT_TYPE), null);
-					flight.getAircraft().getSeats().add(seat);
+							rs.getTimestamp(COLUMN_DATE_ARRIVAL).toLocalDateTime(), null);
+					client.getFlights().add(flight);
 				}
 			}
 
@@ -90,7 +85,7 @@ public class FlightDAOImpl implements FlightDAO {
 				logger.trace(Messages.SUCCESS_RESULT_SET_CLOSED);
 
 				st.close();
-				logger.trace(Messages.SUCCESS_STATEMENT_CLOSED);
+				logger.trace(Messages.SUCCESS_RESULT_SET_CLOSED);
 
 				serviceConnectionFactory.closeConnection(conn);
 				logger.trace(Messages.SUCCESS_CONNECTION_CLOSED);
@@ -100,17 +95,16 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 		}
 
-		return flight;
+		return client;
 	}
 
 	@Override
-	public List<Flight> findAll() throws SQLException {
+	public List<Client> findAll() throws SQLException {
 		Connection conn = null;
-		Flight flight = null;
-		Aircraft aircraft = null;
+		Client client = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		List<Flight> list = new LinkedList<>();
+		List<Client> list = new LinkedList<>();
 
 		try {
 			logger.trace(Messages.PROCESS_OPEN_CONNECTION);
@@ -121,22 +115,23 @@ public class FlightDAOImpl implements FlightDAO {
 
 			logger.trace(Messages.PROCESS_GET_RESULT_SET);
 			rs = st.executeQuery();
+
 			while (rs.next()) {
-				aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER),
-						rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>());
-				flight = new Flight(rs.getLong(COLUMN_ID), rs.getString(COLUMN_CODE),
-						rs.getString(COLUMN_PLACE_DEPARTURE), rs.getString(COLUMN_PLACE_ARRIVAL),
-						rs.getTimestamp(COLUMN_DATE_DEPARTURE).toLocalDateTime(),
-						rs.getTimestamp(COLUMN_DATE_ARRIVAL).toLocalDateTime(), aircraft);
-				if (!list.contains(flight)) {
-					list.add(flight);
+				client = new Client(rs.getLong(COLUMN_ID), rs.getString(COLUMN_PASSPORT_ID),
+						rs.getString(COLUMN_FISRTNAME), rs.getString(COLUMN_SURNAME), rs.getString(COLUMN_PATRONYMIC),
+						new HashSet<>());
+				if (!list.contains(client)) {
+					list.add(client);
 				}
 				Long id = rs.getLong(COLUMN_ID);
-				Seat seat = new Seat(rs.getLong(COLUMN_ID_SEAT), rs.getString(COLUMN_SEAT_NUMBER),
-						rs.getString(COLUMN_SEAT_TYPE), null);
-				if (seat.getId() != 0) {
-					list.stream().filter(buffer -> buffer.getAircraft().getId() == id)
-							.forEach(buffer -> buffer.getAircraft().getSeats().add(seat));
+				if (rs.getLong(COLUMN_ID_FLIGHT) != 0) {
+					Flight flight = new Flight(rs.getLong(COLUMN_ID_FLIGHT), rs.getString(COLUMN_CODE),
+							rs.getString(COLUMN_PLACE_DEPARTURE), rs.getString(COLUMN_PLACE_ARRIVAL),
+							rs.getTimestamp(COLUMN_DATE_DEPARTURE).toLocalDateTime(),
+							rs.getTimestamp(COLUMN_DATE_ARRIVAL).toLocalDateTime(), null);
+
+					list.stream().filter(buffer -> buffer.getId() == id)
+							.forEach(buffer -> buffer.getFlights().add(flight));
 				}
 			}
 
@@ -162,11 +157,11 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public Flight insert(Flight template) throws SQLException {
+	public Client insert(Client template) throws SQLException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		Flight flight = null;
+		Client client = null;
 
 		try {
 			logger.trace(Messages.PROCESS_OPEN_CONNECTION);
@@ -180,10 +175,9 @@ public class FlightDAOImpl implements FlightDAO {
 			logger.trace(Messages.PROCESS_GET_RESULT_SET);
 			rs = st.getGeneratedKeys();
 			if (rs.next()) {
-				flight = new Flight(rs.getLong(COLUMN_ID), rs.getString(COLUMN_CODE),
-						rs.getString(COLUMN_PLACE_DEPARTURE), rs.getString(COLUMN_PLACE_ARRIVAL),
-						rs.getTimestamp(COLUMN_DATE_DEPARTURE).toLocalDateTime(),
-						rs.getTimestamp(COLUMN_DATE_ARRIVAL).toLocalDateTime(), new Aircraft(template.getAircraft()));
+				client = new Client(rs.getLong(COLUMN_ID), rs.getString(COLUMN_PASSPORT_ID),
+						rs.getString(COLUMN_FISRTNAME), rs.getString(COLUMN_SURNAME), rs.getString(COLUMN_PATRONYMIC),
+						null);
 			}
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
@@ -204,15 +198,15 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 		}
 
-		return flight;
+		return client;
 	}
 
 	@Override
-	public Flight update(Flight template) throws SQLException {
+	public Client update(Client template) throws SQLException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		Flight flight = null;
+		Client client = null;
 
 		try {
 			logger.trace(Messages.PROCESS_OPEN_CONNECTION);
@@ -221,16 +215,15 @@ public class FlightDAOImpl implements FlightDAO {
 			logger.trace(Messages.PROCESS_CREATE_STATEMENT);
 			st = conn.prepareStatement(SQL_REQUEST_UPDATE, Statement.RETURN_GENERATED_KEYS);
 			setFields(st, template);
-			st.setLong(7, template.getId());
+			st.setLong(5, template.getId());
 			st.execute();
 
 			logger.trace(Messages.PROCESS_GET_RESULT_SET);
 			rs = st.getGeneratedKeys();
 			if (rs.next()) {
-				flight = new Flight(rs.getLong(COLUMN_ID), rs.getString(COLUMN_CODE),
-						rs.getString(COLUMN_PLACE_DEPARTURE), rs.getString(COLUMN_PLACE_ARRIVAL),
-						rs.getTimestamp(COLUMN_DATE_DEPARTURE).toLocalDateTime(),
-						rs.getTimestamp(COLUMN_DATE_ARRIVAL).toLocalDateTime(), new Aircraft(template.getAircraft()));
+				client = new Client(rs.getLong(COLUMN_ID), rs.getString(COLUMN_PASSPORT_ID),
+						rs.getString(COLUMN_FISRTNAME), rs.getString(COLUMN_SURNAME), rs.getString(COLUMN_PATRONYMIC),
+						null);
 			}
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
@@ -251,15 +244,15 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 		}
 
-		return flight;
+		return client;
 	}
 
 	@Override
-	public Flight delete(Flight template) throws SQLException {
+	public Client delete(Client template) throws SQLException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		Flight flight = null;
+		Client client = null;
 
 		try {
 			logger.trace(Messages.PROCESS_OPEN_CONNECTION);
@@ -273,10 +266,9 @@ public class FlightDAOImpl implements FlightDAO {
 			logger.trace(Messages.PROCESS_GET_RESULT_SET);
 			rs = st.getGeneratedKeys();
 			if (rs.next()) {
-				flight = new Flight(rs.getLong(COLUMN_ID), rs.getString(COLUMN_CODE),
-						rs.getString(COLUMN_PLACE_DEPARTURE), rs.getString(COLUMN_PLACE_ARRIVAL),
-						rs.getTimestamp(COLUMN_DATE_DEPARTURE).toLocalDateTime(),
-						rs.getTimestamp(COLUMN_DATE_ARRIVAL).toLocalDateTime(), new Aircraft(template.getAircraft()));
+				client = new Client(rs.getLong(COLUMN_ID), rs.getString(COLUMN_PASSPORT_ID),
+						rs.getString(COLUMN_FISRTNAME), rs.getString(COLUMN_SURNAME), rs.getString(COLUMN_PATRONYMIC),
+						null);
 			}
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
@@ -297,16 +289,14 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 		}
 
-		return flight;
+		return client;
 	}
-	
-	private void setFields(PreparedStatement st, Flight template) throws SQLException {
-		st.setString(1, template.getCode());
-		st.setString(2, template.getPlaceDeparture());
-		st.setString(3, template.getPlaceArrival());
-		st.setTimestamp(4, Timestamp.valueOf(template.getDateDeparture()));
-		st.setTimestamp(5, Timestamp.valueOf(template.getDateArrival()));
-		st.setLong(6, template.getAircraft().getId());
+
+	private void setFields(PreparedStatement st, Client template) throws SQLException {
+		st.setString(1, template.getPassportId());
+		st.setString(2, template.getFirstname());
+		st.setString(3, template.getSurname());
+		st.setString(4, template.getPatronymic());
 	}
 
 }

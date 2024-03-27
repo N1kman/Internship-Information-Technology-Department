@@ -25,10 +25,10 @@ public class Flight {
 	private LocalDateTime dateArrival;
 
 	@EqualsAndHashCode.Exclude
-	private Aircraft aircraft;
+	private Aircraft aircraft = null;
 	
 	//@EqualsAndHashCode.Exclude
-	//private Set<Client> clients = new HashSet<>();
+	//private Set<Client> clients = null;
 	
 	//@EqualsAndHashCode.Exclude
 	//private Set<Ticket> tickets = new HashSet<>();

@@ -18,7 +18,9 @@ public class Aircraft {
 		this.registrationNumber = aircraft.registrationNumber;
 		this.model = aircraft.model;
 		this.company = aircraft.company;
-		this.seats = new HashSet<>(aircraft.getSeats());
+		if(aircraft.getSeats() != null) {
+			this.seats = new HashSet<>(aircraft.getSeats());
+		}
 	}
 
 	@EqualsAndHashCode.Exclude

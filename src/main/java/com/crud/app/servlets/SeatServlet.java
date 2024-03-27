@@ -19,7 +19,7 @@ public class SeatServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = (request.getPathInfo().split("/"))[1];
 		request.setAttribute("id", id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/seat.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/entities/seat.jsp");
 		dispatcher.forward(request, response);
 	}
 

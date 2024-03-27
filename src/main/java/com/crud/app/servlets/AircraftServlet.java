@@ -19,7 +19,7 @@ public class AircraftServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = (request.getPathInfo().split("/"))[1];
 		request.setAttribute("id", id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/aircraft.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/entities/aircraft.jsp");
 		dispatcher.forward(request, response);
 	}
 }

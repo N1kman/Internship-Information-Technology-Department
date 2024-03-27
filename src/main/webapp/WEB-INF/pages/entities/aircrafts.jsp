@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.crud.app.services.api.impl.DatabaseAPIFlightImpl" %>
-<%@ page import="com.crud.app.services.api.DatabaseAPIFlight" %>	
+<%@ page import="com.crud.app.services.api.impl.DatabaseAPIAircraftImpl" %>
+<%@ page import="com.crud.app.services.api.DatabaseAPIAircraft" %>	
 <%@ page import="com.crud.app.utils.ServiceConnectionFactory" %>
 <%@ page import="com.crud.app.entities.Seat" %>	
 <%@ page import="com.crud.app.entities.Aircraft" %>
-<%@ page import="com.crud.app.entities.Flight" %>
 <%@ page import="java.util.List" %>	
-
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Flights</title>
+	<title>Aircrafts</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/list.css">
 </head>
@@ -20,25 +19,25 @@
 	
 	<%
 		ServiceConnectionFactory.setLocalDriverFromProperties();
-		DatabaseAPIFlight api = new DatabaseAPIFlightImpl();
-		List<Flight> flights = api.findAll();
+		DatabaseAPIAircraft api = new DatabaseAPIAircraftImpl();
+		List<Aircraft> aircrafts = api.findAll();
 	%>
 	
 	<div class="main">
 		<div class="list">
 			<%
-				if(flights != null) {
-					 for (Flight flight : flights) {
-						String href = "href=\"/flights/" + flight.getId() + "\"";
-						out.println("<a " + href + ">" + flight.getCode() + " " + flight.getPlaceDeparture() + "-" + flight.getPlaceArrival() + "</a>");
+				if(aircrafts != null) {
+					 for (Aircraft aircraft : aircrafts) {
+						String href = "href=\"" + request.getContextPath() + "/aircrafts/" + aircraft.getId() + "\"";
+						out.println("<a " + href + ">" + aircraft.getRegistrationNumber() + " " + aircraft.getModel() + "</a>");
 					};
 				}
 			%>
 		</div>
 		<div class="back">
-			<a href="/">Back</a>
+			<a href="javascript:history.back()">Back</a>
 		</div>
 	</div>
-	
+
 </body>
 </html>

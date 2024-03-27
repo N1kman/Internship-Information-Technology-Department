@@ -14,12 +14,14 @@
 	padding: 100px;
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
 .main .choose {
 	display: block;
 	text-decoration: none;
 	padding: 10px 10px;
+	width: 60px;
 	margin: 20px;
 	transition: all 0.25s ease;
 }
@@ -30,21 +32,21 @@
 	color: #FF4F6C;
 }
 
-.main .back {
+.back {
 	display: block;
 	margin: 40px;
 	margin-top: 0px;
 }
 
-.main .back a {
+.back a {
 	display: block;
 	width: 60px; 
-	padding: 20px 20px;
+	padding: 20px;
 	text-decoration: none;
 	color: #FD2045;
 	transition: all 0.25s ease;
 }
 
-.main .back a:hover {
+.back a:hover {
 	transform: scale(1.2);
 }

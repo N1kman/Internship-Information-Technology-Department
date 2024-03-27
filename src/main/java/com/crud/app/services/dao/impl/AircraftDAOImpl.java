@@ -72,10 +72,6 @@ public class AircraftDAOImpl implements AircraftDAO {
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
 
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
-
 		} finally {
 			try {
 				rs.close();
@@ -127,11 +123,7 @@ public class AircraftDAOImpl implements AircraftDAO {
 				}
 			}
 
-			logger.trace(Messages.SUCCESS_EXECUTED);
-
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
+			logger.trace(Messages.SUCCESS_EXECUTED);;
 
 		} finally {
 			try {
@@ -172,14 +164,10 @@ public class AircraftDAOImpl implements AircraftDAO {
 			rs = st.getGeneratedKeys();
 			if (rs.next()) {
 				aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER),
-						rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>(template.getSeats()));
+						rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), null);
 			}
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
-
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
 
 		} finally {
 			try {
@@ -221,14 +209,10 @@ public class AircraftDAOImpl implements AircraftDAO {
 			rs = st.getGeneratedKeys();
 			if (rs.next()) {
 				aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER),
-						rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>(template.getSeats()));
+						rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), null);
 			}
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
-
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
 
 		} finally {
 			try {
@@ -269,14 +253,10 @@ public class AircraftDAOImpl implements AircraftDAO {
 			rs = st.getGeneratedKeys();
 			if (rs.next()) {
 				aircraft = new Aircraft(rs.getLong(COLUMN_ID), rs.getString(COLUMN_REGISTRATION_NUMBER),
-						rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), new HashSet<>(template.getSeats()));
+						rs.getString(COLUMN_MODEL), rs.getString(COLUMN_COMPANY), null);
 			}
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
-
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
 
 		} finally {
 			try {

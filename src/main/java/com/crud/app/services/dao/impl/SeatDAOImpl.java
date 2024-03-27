@@ -65,10 +65,6 @@ public class SeatDAOImpl implements SeatDAO {
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
 
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
-
 		} finally {
 			try {
 				rs.close();
@@ -117,10 +113,6 @@ public class SeatDAOImpl implements SeatDAO {
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
 
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
-
 		} finally {
 			try {
 				rs.close();
@@ -164,10 +156,6 @@ public class SeatDAOImpl implements SeatDAO {
 			}
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
-
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
 
 		} finally {
 			try {
@@ -214,10 +202,6 @@ public class SeatDAOImpl implements SeatDAO {
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
 
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
-
 		} finally {
 			try {
 				rs.close();
@@ -261,10 +245,6 @@ public class SeatDAOImpl implements SeatDAO {
 			}
 
 			logger.trace(Messages.SUCCESS_EXECUTED);
-
-		} catch (SQLException e) {
-			logger.error(Messages.UNSUCCESS_EXECUTED, e);
-			throw e;
 
 		} finally {
 			try {

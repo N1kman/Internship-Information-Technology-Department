@@ -34,7 +34,7 @@
 		%>
 		</div>
 		<div class="back">
-			<a href="/seats">Back</a>
+			<a href="javascript:history.back()">Back</a>
 		</div>
 	</div>
 

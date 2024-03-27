@@ -27,14 +27,14 @@
 			<%
 				if(seats != null) {
 					 for (Seat seat : seats) {
-						String href = "href=\"/seats/" + seat.getId() + "\"";
+						String href = "href=\"" + request.getContextPath() + "/seats/" + seat.getId() + "\"";
 						out.println("<a " + href + ">" + seat.getSeatNumber() + " " + seat.getSeatType() + "</a>");
 					};
 				}
 			%>
 		</div>
 		<div class="back">
-			<a href="/">Back</a>
+			<a href="javascript:history.back()">Back</a>
 		</div>
 	</div>
 

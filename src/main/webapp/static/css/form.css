@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.back {
+	padding: 100px;
+}
+
+.success {
+	color: #03AB0B;
+}
+
+.failed {
+	color: #FF3636;
+}
+
+
