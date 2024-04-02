@@ -25,14 +25,14 @@
 Условие :page_facing_up: : 
   - клиентская часть с использованием JSP
 
-Ветка для задания - <a href="https://github.com/N1kman/Internship-Information-Technology-Department/tree/Task3?tab=readme-ov-file">TASK3</a> ✔️ 
+Ветка для задания - <a href="https://github.com/N1kman/Internship-Information-Technology-Department/tree/Task3">TASK3</a> ✔️ 
 
 ### Задание 4️⃣
 
 Условие :page_facing_up: : 
   - Backend на SpringBoot + Hibernate
 
-Ветка для задания - TASK4 ❌
+Ветка для задания - <a href="https://github.com/N1kman/Internship-Information-Technology-Department/tree/Task4">TASK4</a> ✔️
 
 ### Задание 5️⃣
 
