@@ -1,0 +1,22 @@
+## Maven:
+!.mvn/wrapper/maven-wrapper.jar
+/.mvn/
+/mvnw
+/mvnw.bat
+mvnw.cmd
+/log/
+*.log*
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+
+#Eclipse
+.classpath
+.project
+.settings/
+
+#maven
+log/
+target/
