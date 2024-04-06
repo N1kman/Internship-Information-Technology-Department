@@ -3,8 +3,12 @@ package com.backend.airport.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,7 +41,11 @@ public class Client {
 	@Column(name = "patronymic")
 	private String patronymic;
 	
-    @ManyToMany(mappedBy = "clients")
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "clients",
+            cascade = {
+                    CascadeType.MERGE, CascadeType.PERSIST
+            })
 	private Set<Flight> flights = new HashSet<>();
 	
 	//@EqualsAndHashCode.Exclude

@@ -7,6 +7,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,7 +39,10 @@ public class Flight {
 	//@EqualsAndHashCode.Exclude
 	//private Aircraft aircraft;
 	
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.MERGE, CascadeType.PERSIST
+            })
     @JoinTable(name = "history",
             joinColumns = @JoinColumn(name = "id_flight"),
             inverseJoinColumns = @JoinColumn(name = "id_client"))
