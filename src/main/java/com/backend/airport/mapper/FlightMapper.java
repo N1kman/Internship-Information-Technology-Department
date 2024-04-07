@@ -4,8 +4,9 @@ import org.mapstruct.Mapper;
 
 import com.backend.airport.DTO.FlightDTO;
 import com.backend.airport.entity.Flight;
+import org.mapstruct.MappingConstants;
 
-@Mapper(componentModel = "spring", uses = ClientMapper.class)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = ClientMapper.class)
 public interface FlightMapper {
 	
 	FlightDTO toDTO(Flight flight);

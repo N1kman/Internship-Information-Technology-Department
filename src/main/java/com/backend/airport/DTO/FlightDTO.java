@@ -21,8 +21,6 @@ public class FlightDTO {
 	
 	private FlightInfo flightInfo;
 	
-	private Long idAircraft;
-	
 	private Set<ClientDTO> clients;
 
 }

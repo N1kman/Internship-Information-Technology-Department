@@ -1,15 +1,11 @@
 package com.backend.airport.controller;
 
-import java.util.Set;
-
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.airport.DTO.FlightDTO;
-import com.backend.airport.entity.Client;
 import com.backend.airport.entity.Flight;
 import com.backend.airport.mapper.FlightMapper;
 import com.backend.airport.service.FlightService;
@@ -22,7 +18,6 @@ public class FlightController {
 	
 	@Autowired
 	private FlightMapper flightMapper;
-
 	
 	@GetMapping("/flight/{id}")
 	public Flight greeting(@PathVariable Long id) {

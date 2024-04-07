@@ -24,29 +24,36 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "client")
 public class Client {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "passport_id")
 	private String passportId;
-	
+
 	@Column(name = "firstname")
 	private String firstname;
-	
+
 	@Column(name = "surname")
 	private String surname;
-	
+
 	@Column(name = "patronymic")
 	private String patronymic;
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "clients",
-            cascade = {
-                    CascadeType.MERGE, CascadeType.PERSIST
-            })
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "clients", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<Flight> flights = new HashSet<>();
-	
-	//@EqualsAndHashCode.Exclude
-	//private Set<Reservation> reservation;
+
+	// @EqualsAndHashCode.Exclude
+	// private Set<Reservation> reservation;
+
+	public void addFlight(Flight flight) {
+		flights.add(flight);
+		flight.getClients().add(this);
+	}
+
+	public void removeFlight(Flight flight) {
+		flights.remove(flight);
+		flight.getClients().remove(this);
+	}
 }
