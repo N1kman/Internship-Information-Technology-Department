@@ -7,6 +7,8 @@ import com.backend.airport.entity.Flight;
 import com.backend.airport.repository.FlightRepository;
 import com.backend.airport.service.FlightService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class FlightServiceImpl implements FlightService  {
 	
@@ -14,8 +16,9 @@ public class FlightServiceImpl implements FlightService  {
 	private FlightRepository flightRepository;
 	
 	@Override
+	@Transactional
 	public Flight getFlight(Long id) {
-		return flightRepository.getById(id);
+		return flightRepository.findById(id).get();
 	}
 
 }

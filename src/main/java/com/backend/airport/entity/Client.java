@@ -41,8 +41,7 @@ public class Client {
 	@Column(name = "patronymic")
 	private String patronymic;
 	
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "clients",
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "clients",
             cascade = {
                     CascadeType.MERGE, CascadeType.PERSIST
             })

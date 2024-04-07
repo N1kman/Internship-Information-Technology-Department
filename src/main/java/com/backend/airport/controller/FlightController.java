@@ -2,6 +2,7 @@ package com.backend.airport.controller;
 
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +25,9 @@ public class FlightController {
 
 	
 	@GetMapping("/flight/{id}")
-	public Set<Client> greeting(@PathVariable Long id) {
+	public Flight greeting(@PathVariable Long id) {
 		Flight flight = flightService.getFlight(id);
-		flight.getClients().size();
-		return flight.getClients();
+		flight.getClients();
+		return flight;
 	}
 }
