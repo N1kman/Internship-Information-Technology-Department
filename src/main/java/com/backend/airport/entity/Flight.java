@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -47,8 +48,8 @@ public class Flight {
 	)
 	private Set<Client> clients = new HashSet<>();
 
-	// @EqualsAndHashCode.Exclude
-	// private Set<Ticket> tickets;
+	@OneToMany(mappedBy="flight")
+	private Set<Ticket> tickets = new HashSet<>();
 
 	public void addClient(Client client) {
 		clients.add(client);
@@ -99,6 +100,14 @@ public class Flight {
 
 	public void setClients(Set<Client> clients) {
 		this.clients = clients;
+	}
+
+	public Set<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(Set<Ticket> tickets) {
+		this.tickets = tickets;
 	}
 
 }

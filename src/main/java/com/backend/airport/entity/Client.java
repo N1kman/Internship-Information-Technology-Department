@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -41,8 +42,8 @@ public class Client {
 	@ManyToMany(mappedBy = "clients", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<Flight> flights = new HashSet<>();
 
-	// @EqualsAndHashCode.Exclude
-	// private Set<Reservation> reservation;
+	@OneToMany(mappedBy="client")
+	private Set<Reservation> reservations = new HashSet<>();
 
 	public void addFlight(Flight flight) {
 		flights.add(flight);
@@ -101,4 +102,13 @@ public class Client {
 	public void setFlights(Set<Flight> flights) {
 		this.flights = flights;
 	}
+
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
 }

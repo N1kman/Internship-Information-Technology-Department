@@ -1,5 +1,7 @@
 package com.backend.airport.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,12 @@ public class FlightServiceImpl implements FlightService  {
 	
 	@Override 
 	public Flight getFlight(Long id) {
-		return flightRepository.findById(id).get();
+		return flightRepository.getById(id);
+	}
+	
+	@Override 
+	public List<Flight> getFlights() {
+		return flightRepository.findAll();
 	}
 
 }

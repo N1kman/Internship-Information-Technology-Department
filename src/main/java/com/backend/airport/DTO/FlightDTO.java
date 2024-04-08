@@ -23,7 +23,7 @@ public class FlightDTO {
 	
 	private AircraftDTO aircraft;
 	
-	private Set<ClientDTO> clients;
+	private Set<TicketDTO> tickets;
 
 	public Long getId() {
 		return id;
@@ -49,20 +49,20 @@ public class FlightDTO {
 		this.flightInfo = flightInfo;
 	}
 
-	public Set<ClientDTO> getClients() {
-		return clients;
-	}
-
-	public void setClients(Set<ClientDTO> clients) {
-		this.clients = clients;
-	}
-
 	public AircraftDTO getAircraft() {
 		return aircraft;
 	}
 
 	public void setAircraft(AircraftDTO aircraft) {
 		this.aircraft = aircraft;
+	}
+
+	public Set<TicketDTO> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(Set<TicketDTO> tickets) {
+		this.tickets = tickets;
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.backend.airport.DTO;
 
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -20,8 +18,6 @@ public class AircraftDTO {
 	private String model;
 
 	private String company;
-	
-	private Set<SeatDTO> seats;
 	
 	public Long getId() {
 		return id;
@@ -53,14 +49,6 @@ public class AircraftDTO {
 
 	public void setCompany(String company) {
 		this.company = company;
-	}
-
-	public Set<SeatDTO> getSeats() {
-		return seats;
-	}
-
-	public void setSeats(Set<SeatDTO> seats) {
-		this.seats = seats;
 	}
 
 }
