@@ -21,7 +21,7 @@ public class FlightDTO {
 	
 	private FlightInfo flightInfo;
 	
-	private AircraftDTO aircratf;
+	private AircraftDTO aircraft;
 	
 	private Set<ClientDTO> clients;
 
@@ -49,20 +49,20 @@ public class FlightDTO {
 		this.flightInfo = flightInfo;
 	}
 
-	public AircraftDTO getAircratf() {
-		return aircratf;
-	}
-
-	public void setAircratf(AircraftDTO aircratf) {
-		this.aircratf = aircratf;
-	}
-
 	public Set<ClientDTO> getClients() {
 		return clients;
 	}
 
 	public void setClients(Set<ClientDTO> clients) {
 		this.clients = clients;
+	}
+
+	public AircraftDTO getAircraft() {
+		return aircraft;
+	}
+
+	public void setAircraft(AircraftDTO aircraft) {
+		this.aircraft = aircraft;
 	}
 
 }

@@ -33,13 +33,13 @@ public class Aircraft {
 	
 	@Column(name = "company")
 	private String company;
-
-	//private Set<Seat> seats = null;
+	
+	@OneToMany(mappedBy="aircraft")
+	private Set<Seat> seats = new HashSet<>();
 	
 	@OneToMany(mappedBy="aircraft")
 	private Set<Flight> flights = new HashSet<>();
 	
-
 	public Long getId() {
 		return id;
 	}
@@ -78,5 +78,13 @@ public class Aircraft {
 
 	public void setFlights(Set<Flight> flights) {
 		this.flights = flights;
+	}
+
+	public Set<Seat> getSeats() {
+		return seats;
+	}
+
+	public void setSeats(Set<Seat> seats) {
+		this.seats = seats;
 	}
 }
