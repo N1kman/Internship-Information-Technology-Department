@@ -3,26 +3,23 @@ package com.backend.airport.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data
+@EqualsAndHashCode(of = {"passportId", "firstname", "surname", "patronymic"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Table(name = "client")
+@Entity
 public class Client {
 
 	@Id
@@ -41,7 +38,7 @@ public class Client {
 	@Column(name = "patronymic")
 	private String patronymic;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "clients", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@ManyToMany(mappedBy = "clients", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<Flight> flights = new HashSet<>();
 
 	// @EqualsAndHashCode.Exclude
@@ -55,5 +52,53 @@ public class Client {
 	public void removeFlight(Flight flight) {
 		flights.remove(flight);
 		flight.getClients().remove(this);
+	}	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getPassportId() {
+		return passportId;
+	}
+
+	public void setPassportId(String passportId) {
+		this.passportId = passportId;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getPatronymic() {
+		return patronymic;
+	}
+
+	public void setPatronymic(String patronymic) {
+		this.patronymic = patronymic;
+	}
+
+	public Set<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(Set<Flight> flights) {
+		this.flights = flights;
 	}
 }

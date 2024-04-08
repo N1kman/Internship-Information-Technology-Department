@@ -20,9 +20,8 @@ public class FlightController {
 	private FlightMapper flightMapper;
 	
 	@GetMapping("/flight/{id}")
-	public Flight greeting(@PathVariable Long id) {
+	public FlightDTO greeting(@PathVariable Long id) {
 		Flight flight = flightService.getFlight(id);
-		flight.getClients();
-		return flight;
+		return flightMapper.toDTO(flight);
 	}
 }

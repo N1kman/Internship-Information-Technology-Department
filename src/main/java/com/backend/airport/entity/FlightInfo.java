@@ -5,10 +5,14 @@ import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(of = {"placeDeparture", "placeArrival", "dateDeparture", "dateArrival"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable

@@ -2,7 +2,6 @@ package com.backend.airport.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.airport.entity.Flight;
 import com.backend.airport.repository.FlightRepository;
@@ -14,8 +13,7 @@ public class FlightServiceImpl implements FlightService  {
 	@Autowired
 	private FlightRepository flightRepository;
 	
-	@Override
-	@Transactional 
+	@Override 
 	public Flight getFlight(Long id) {
 		return flightRepository.findById(id).get();
 	}
