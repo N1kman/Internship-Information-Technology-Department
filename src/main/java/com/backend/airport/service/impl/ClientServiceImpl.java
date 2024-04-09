@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.airport.entity.Client;
 import com.backend.airport.entity.Reservation;
@@ -44,5 +43,10 @@ public class ClientServiceImpl implements ClientService {
 
 		clientRepository.delete(client);
 		return client;
+	}
+
+	@Override
+	public Client addClient(Client client) {
+		return clientRepository.save(client);
 	}
 }

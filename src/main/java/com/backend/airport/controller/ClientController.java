@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,6 +61,18 @@ public class ClientController {
 	public ResponseEntity<ClientDTO> delete(@PathVariable Long id) {
 		try {
 			return new ResponseEntity<>(clientMapper.toDTO(clientService.deleteClient(id)), HttpStatus.OK);
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@PostMapping
+	public ResponseEntity<ClientDTO> get(@RequestBody ClientDTO client) {
+		try {
+			return new ResponseEntity<>(clientMapper.toDTO(clientService.addClient(clientMapper.toClient(client))), HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
