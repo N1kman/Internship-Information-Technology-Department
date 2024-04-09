@@ -5,11 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.airport.entity.Client;
-import com.backend.airport.entity.Reservation;
 import com.backend.airport.repository.ClientRepository;
 import com.backend.airport.repository.ReservationRepository;
+import com.backend.airport.repository.TicketRepository;
 import com.backend.airport.service.ClientService;
 
 @Service
@@ -20,6 +21,9 @@ public class ClientServiceImpl implements ClientService {
 	
 	@Autowired
 	private ReservationRepository reservationRepository;
+	
+	@Autowired
+	private TicketRepository ticketRepository;
 	
 	@Override
 	public Client getClient(Long id) {
@@ -34,14 +38,10 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public Client deleteClient(Long id) {
 		Client client = clientRepository.getById(id);
-		List<Reservation> res = new ArrayList<>(client.getReservations());
-		reservationRepository.deleteAll(res);
+		client.getFlights().size();
+		client.getReservations().size();
+		//reservationRepository.deleteAll(new ArrayList<>(client.getReservations()));
 		clientRepository.deleteById(client.getId());
-//		for (Reservation reservation : client.getReservations()) {
-//		    reservationRepository.delete(reservation);
-//		}
-
-		clientRepository.delete(client);
 		return client;
 	}
 

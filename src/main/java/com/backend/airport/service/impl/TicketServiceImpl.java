@@ -41,9 +41,6 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public Ticket deleteTicket(Long id) {
 		Ticket ticket = ticketRepository.getById(id);
-		if(ticket.getReservation() != null) {
-			reservationRepository.delete(ticket.getReservation());
-		}
 		ticketRepository.deleteById(ticket.getId());
 		return ticket;
 	}

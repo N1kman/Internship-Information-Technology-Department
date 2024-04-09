@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -41,7 +40,6 @@ public class Ticket {
 	private Seat seat = new Seat();
 	
 	@OneToOne(mappedBy = "ticket", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-    @PrimaryKeyJoinColumn
 	private Reservation reservation;
 	
 	public String getTicketNumber() {
