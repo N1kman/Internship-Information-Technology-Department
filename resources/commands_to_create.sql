@@ -57,8 +57,9 @@ CREATE TABLE IF NOT EXISTS public.ticket
 );
 
 CREATE TABLE IF NOT EXISTS public.reservation
-(
-	id_ticket BIGINT PRIMARY KEY,
+( 
+	id BIGSERIAL PRIMARY KEY,
+	id_ticket BIGINT NOT NULL,
 	reservation_date TIMESTAMP DEFAULT now(),
 	id_client BIGINT NOT NULL,
 	CONSTRAINT fk_ticket FOREIGN KEY(id_ticket) REFERENCES ticket(id),
