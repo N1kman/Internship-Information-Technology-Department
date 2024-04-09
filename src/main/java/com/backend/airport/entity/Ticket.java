@@ -40,7 +40,7 @@ public class Ticket {
     @JoinColumn(name="id_seat", nullable=false)
 	private Seat seat = new Seat();
 	
-	@OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "ticket", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @PrimaryKeyJoinColumn
 	private Reservation reservation;
 	
@@ -82,5 +82,13 @@ public class Ticket {
 
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
+	}
+
+	public Flight getFlight() {
+		return flight;
+	}
+
+	public void setFlight(Flight flight) {
+		this.flight = flight;
 	}
 }

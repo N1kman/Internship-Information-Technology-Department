@@ -10,4 +10,6 @@ import com.backend.airport.entity.Seat;
 public interface SeatMapper {
 	
 	SeatDTO toDTO(Seat seat);
+	
+	Seat toSeat(SeatDTO seat);
 }

@@ -14,4 +14,8 @@ public interface FlightMapper {
 	FlightDTO toDTO(Flight flight);
 	
 	Set<FlightDTO> toDTOs(Set<Flight> flights);
+	
+	Flight toFlight(FlightDTO flight);
+	
+	Set<Flight> toFlights(Set<FlightDTO> flights);
 }

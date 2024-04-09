@@ -9,4 +9,10 @@ public interface FlightService {
 	Flight getFlight(Long id);
 	
 	List<Flight> getFlights();
+	
+	Flight deleteFlight(Long id);
+	
+	Flight addFlight(Flight flight);
+	
+	Flight updateFlight(Flight flight);
 }

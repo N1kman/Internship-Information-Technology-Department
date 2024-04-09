@@ -48,7 +48,7 @@ public class Flight {
 	)
 	private Set<Client> clients = new HashSet<>();
 
-	@OneToMany(mappedBy="flight")
+	@OneToMany(mappedBy="flight", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private Set<Ticket> tickets = new HashSet<>();
 
 	public void addClient(Client client) {
@@ -59,6 +59,14 @@ public class Flight {
 	public void removeClient(Client client) {
 		clients.remove(client);
 		client.getFlights().remove(this);
+	}
+	
+	public void addTicket(Ticket ticket) {
+		tickets.add(ticket);
+	}
+
+	public void removeTicket(Ticket ticket) {
+		tickets.remove(ticket);
 	}
 	
 

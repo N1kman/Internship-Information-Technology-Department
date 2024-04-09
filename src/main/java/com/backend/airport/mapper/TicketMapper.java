@@ -14,4 +14,8 @@ public interface TicketMapper {
 	TicketDTO toDTO(Ticket ticket);
 	
 	Set<TicketDTO> toDTOs(Set<Ticket> tickets);
+	
+	Ticket toTicket(TicketDTO ticket);
+	
+	Set<Ticket> toTickets(Set<TicketDTO> tickets);
 }

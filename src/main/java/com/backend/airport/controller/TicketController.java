@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,51 +17,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.airport.DTO.FlightDTO;
-import com.backend.airport.entity.Flight;
-import com.backend.airport.mapper.FlightMapper;
-import com.backend.airport.service.FlightService;
+import com.backend.airport.DTO.TicketDTO;
+import com.backend.airport.entity.Ticket;
+import com.backend.airport.mapper.TicketMapper;
+import com.backend.airport.service.TicketService;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/flights")
-public class FlightController {
-	
+@RequestMapping("/tickets")
+public class TicketController {
+
 	@Autowired
-	private FlightService flightService;
-	
+	private TicketService ticketService;
+
 	@Autowired
-	private FlightMapper flightMapper;
-	
+	private TicketMapper ticketMapper;
+
 	@GetMapping("/{id}")
-	public ResponseEntity<FlightDTO> get(@PathVariable Long id) {
+	public ResponseEntity<TicketDTO> get(@PathVariable Long id) {
 		try {
-			return new ResponseEntity<>(flightMapper.toDTO(flightService.getFlight(id)), HttpStatus.OK);
+			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.getTicket(id)), HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<Set<FlightDTO>> getAll() {
+	public ResponseEntity<Set<TicketDTO>> getAll() {
 		try {
-			List<Flight> list = flightService.getFlights();
+			List<Ticket> list = ticketService.getTickets();
 			if (list.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}
-			return new ResponseEntity<>(flightMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
+			return new ResponseEntity<>(ticketMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<FlightDTO> delete(@PathVariable Long id) {
+	public ResponseEntity<TicketDTO> delete(@PathVariable Long id) {
 		try {
-			return new ResponseEntity<>(flightMapper.toDTO(flightService.deleteFlight(id)), HttpStatus.OK);
+			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.deleteTicket(id)), HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
@@ -68,11 +69,12 @@ public class FlightController {
 		}
 	}
 	
-	@PostMapping
-	public ResponseEntity<FlightDTO> post(@RequestBody FlightDTO flight) {
+	/* id - reference to Flight */
+	@PostMapping("/{id}")
+	public ResponseEntity<TicketDTO> post(@PathVariable Long id, @RequestBody TicketDTO ticket) {
 		try {
-			return new ResponseEntity<>(flightMapper.toDTO(flightService.addFlight(flightMapper.toFlight(flight))), HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
+			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.addTicket(id, ticketMapper.toTicket(ticket))), HttpStatus.OK);
+		} catch (EntityNotFoundException | DataIntegrityViolationException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -80,13 +82,12 @@ public class FlightController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<FlightDTO> put(@RequestBody FlightDTO flight) {
+	public ResponseEntity<TicketDTO> put(@RequestBody TicketDTO ticket) {
 		try {
-			return new ResponseEntity<>(flightMapper.toDTO(flightService.updateFlight(flightMapper.toFlight(flight))), HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
+			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.updateTicket(ticketMapper.toTicket(ticket))), HttpStatus.OK);
+		} catch (EntityNotFoundException | DataIntegrityViolationException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
-			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}

@@ -34,7 +34,7 @@ public class Reservation {
 	private Ticket ticket;
 	
 	@ManyToOne
-    @JoinColumn(name="id_client", nullable=false)
+    @JoinColumn(name="id_client")
 	private Client client;
 	
 	public Long getId() {

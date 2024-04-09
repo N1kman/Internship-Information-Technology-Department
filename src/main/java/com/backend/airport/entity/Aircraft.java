@@ -3,6 +3,7 @@ package com.backend.airport.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,10 +35,10 @@ public class Aircraft {
 	@Column(name = "company")
 	private String company;
 	
-	@OneToMany(mappedBy="aircraft")
+	@OneToMany(mappedBy="aircraft", cascade = { CascadeType.PERSIST, CascadeType.MERGE } )
 	private Set<Seat> seats = new HashSet<>();
 	
-	@OneToMany(mappedBy="aircraft")
+	@OneToMany(mappedBy="aircraft", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Flight> flights = new HashSet<>();
 	
 	public Long getId() {

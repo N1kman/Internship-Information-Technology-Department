@@ -42,7 +42,7 @@ public class Client {
 	@ManyToMany(mappedBy = "clients", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<Flight> flights = new HashSet<>();
 
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy="client", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private Set<Reservation> reservations = new HashSet<>();
 
 	public void addFlight(Flight flight) {
