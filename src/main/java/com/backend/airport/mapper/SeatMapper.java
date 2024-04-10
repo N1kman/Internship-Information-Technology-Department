@@ -3,7 +3,7 @@ package com.backend.airport.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
-import com.backend.airport.DTO.SeatDTO;
+import com.backend.airport.dto.SeatDTO;
 import com.backend.airport.entity.Seat;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = AircraftMapper.class)

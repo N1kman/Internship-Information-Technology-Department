@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
-import com.backend.airport.DTO.ClientDTO;
+import com.backend.airport.dto.ClientDTO;
 import com.backend.airport.entity.Client;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = { FlightMapper.class, ReservationMapper.class } )

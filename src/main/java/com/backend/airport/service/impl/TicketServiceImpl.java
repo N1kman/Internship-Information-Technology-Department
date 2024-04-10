@@ -56,7 +56,7 @@ public class TicketServiceImpl implements TicketService {
 	public Ticket updateTicket(Ticket ticket) {
 		Ticket state = ticketRepository.getById(ticket.getId());
 		ticket.setFlight(state.getFlight());
-		if (ticket.getSeat() == null || ticket.getSeat().getId() == state.getSeat().getId()) {
+		if (ticket.getSeat() == null || ticket.getSeat().getId().equals(state.getSeat().getId())) {
 			ticket.setSeat(state.getSeat());
 		} else {
 			ticket.setSeat(seatRepository.getById(ticket.getSeat().getId()));

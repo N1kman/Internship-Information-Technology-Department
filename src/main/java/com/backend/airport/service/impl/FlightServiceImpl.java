@@ -48,7 +48,7 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public Flight updateFlight(Flight flight) {
 		Flight state = flightRepository.getById(flight.getId());
-		if (flight.getAircraft() == null || state.getAircraft().getId() == flight.getAircraft().getId()) {
+		if (flight.getAircraft() == null || state.getAircraft().getId().equals(flight.getAircraft().getId())) {
 			flight.setAircraft(state.getAircraft());
 		} else {
 			flight.setAircraft(aircraftRepository.getById(flight.getAircraft().getId()));

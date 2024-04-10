@@ -1,4 +1,4 @@
-package com.backend.airport.DTO;
+package com.backend.airport.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

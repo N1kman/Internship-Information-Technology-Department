@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.airport.DTO.ReservationDTO;
+import com.backend.airport.dto.ReservationDTO;
 import com.backend.airport.entity.Reservation;
 import com.backend.airport.mapper.ReservationMapper;
 import com.backend.airport.service.ReservationService;

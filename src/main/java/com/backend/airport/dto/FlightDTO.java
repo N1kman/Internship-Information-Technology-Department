@@ -1,4 +1,4 @@
-package com.backend.airport.DTO;
+package com.backend.airport.dto;
 
 import java.util.Set;
 

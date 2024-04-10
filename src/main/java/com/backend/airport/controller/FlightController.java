@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.airport.DTO.FlightDTO;
+import com.backend.airport.dto.FlightDTO;
 import com.backend.airport.entity.Flight;
 import com.backend.airport.mapper.FlightMapper;
 import com.backend.airport.service.FlightService;

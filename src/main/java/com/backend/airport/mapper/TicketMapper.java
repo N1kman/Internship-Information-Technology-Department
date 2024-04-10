@@ -5,7 +5,7 @@ import java.util.Set;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
-import com.backend.airport.DTO.TicketDTO;
+import com.backend.airport.dto.TicketDTO;
 import com.backend.airport.entity.Ticket;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = { SeatMapper.class, ReservationMapper.class } )

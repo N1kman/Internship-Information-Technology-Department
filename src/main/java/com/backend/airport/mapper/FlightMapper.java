@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.mapstruct.Mapper;
 
-import com.backend.airport.DTO.FlightDTO;
+import com.backend.airport.dto.FlightDTO;
 import com.backend.airport.entity.Flight;
 import org.mapstruct.MappingConstants;
 

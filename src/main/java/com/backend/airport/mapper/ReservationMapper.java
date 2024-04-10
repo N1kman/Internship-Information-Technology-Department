@@ -5,7 +5,7 @@ import java.util.Set;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
-import com.backend.airport.DTO.ReservationDTO;
+import com.backend.airport.dto.ReservationDTO;
 import com.backend.airport.entity.Reservation;
 import org.mapstruct.Mapping;
 

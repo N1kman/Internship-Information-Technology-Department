@@ -53,7 +53,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Reservation addReservation(Long id, Reservation reservation) {
 		Ticket ticket = ticketRepository.getById(id);
-		if (ticket.getTicketStatus()) {
+		if (Boolean.TRUE.equals(ticket.getTicketStatus())) {
 			throw new EntityExistsException("Reservated");
 		}
 		ticket.setTicketStatus(true);
