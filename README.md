@@ -14,5 +14,6 @@
   - <a href="src/main/java/com/backend/airport/mapper">мапперы</a>
   - <a href="src/main/java/com/backend/airport/entity">объекты</a>
   - <a href="src/main/java/com/backend/airport/dto">объекты dto</a>
+  - <a href="https://www.postman.com/n1kman/workspace/backend-airport/overview">postman</a>
   - планируемое время выполнения - 25 часов
   - реально затраченное - 45 часов
