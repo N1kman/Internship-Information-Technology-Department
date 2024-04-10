@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.airport.entity.Client;
+import com.backend.airport.entity.Reservation;
 import com.backend.airport.repository.ClientRepository;
 import com.backend.airport.repository.ReservationRepository;
 import com.backend.airport.repository.TicketRepository;
@@ -39,8 +40,10 @@ public class ClientServiceImpl implements ClientService {
 	public Client deleteClient(Long id) {
 		Client client = clientRepository.getById(id);
 		client.getFlights().size();
-		client.getReservations().size();
-		//reservationRepository.deleteAll(new ArrayList<>(client.getReservations()));
+		for(Reservation reservation : client.getReservations()) {
+			client.removeReservation(reservation);
+			reservationRepository.deleteById(reservation.getId());
+		};
 		clientRepository.deleteById(client.getId());
 		return client;
 	}
