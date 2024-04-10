@@ -28,19 +28,24 @@ import jakarta.persistence.EntityNotFoundException;
 @RequestMapping("/tickets")
 public class TicketController {
 
+	private final TicketService ticketService;
+	private final TicketMapper ticketMapper;
+	
 	@Autowired
-	private TicketService ticketService;
-
-	@Autowired
-	private TicketMapper ticketMapper;
+	public TicketController(TicketService ticketService, TicketMapper ticketMapper) {
+		this.ticketService = ticketService;
+		this.ticketMapper = ticketMapper;
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<TicketDTO> get(@PathVariable Long id) {
 		try {
 			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.getTicket(id)), HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -54,40 +59,49 @@ public class TicketController {
 			}
 			return new ResponseEntity<>(ticketMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<TicketDTO> delete(@PathVariable Long id) {
 		try {
 			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.deleteTicket(id)), HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	/* id - reference to Flight */
 	@PostMapping("/{id}")
 	public ResponseEntity<TicketDTO> post(@PathVariable Long id, @RequestBody TicketDTO ticket) {
 		try {
-			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.addTicket(id, ticketMapper.toTicket(ticket))), HttpStatus.OK);
+			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.addTicket(id, ticketMapper.toTicket(ticket))),
+					HttpStatus.OK);
 		} catch (EntityNotFoundException | DataIntegrityViolationException e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<TicketDTO> put(@RequestBody TicketDTO ticket) {
 		try {
-			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.updateTicket(ticketMapper.toTicket(ticket))), HttpStatus.OK);
+			return new ResponseEntity<>(ticketMapper.toDTO(ticketService.updateTicket(ticketMapper.toTicket(ticket))),
+					HttpStatus.OK);
 		} catch (EntityNotFoundException | DataIntegrityViolationException e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}

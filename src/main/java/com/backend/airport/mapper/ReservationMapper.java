@@ -16,7 +16,6 @@ public interface ReservationMapper {
 	
 	Set<ReservationDTO> toDTOs(Set<Reservation> reservations);
 	
-	@Mapping(target = "client", ignore = true)
 	@Mapping(target = "ticket", ignore = true)
 	Reservation toReservation(ReservationDTO reservation);
 	

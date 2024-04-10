@@ -14,5 +14,7 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
 	List<Client> findAll();
 
 	Client getById(Long id);
+	
+	Client getByPassportId(String passportId);
 
 }

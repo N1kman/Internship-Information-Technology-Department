@@ -35,7 +35,7 @@ public class Seat {
 	
 	@ManyToOne
     @JoinColumn(name="id_aircraft", nullable=false)
-	private Aircraft aircraft = new Aircraft();
+	private Aircraft aircraft;
 	
 	@OneToMany(mappedBy="seat")
 	private Set<Ticket> tickets = new HashSet<>();

@@ -17,6 +17,8 @@ public class ReservationDTO {
 	
 	private LocalDateTime reservationDate;
 	
+	private ClientDTO client;
+	
 	public Long getId() {
 		return id;
 	}
@@ -31,5 +33,13 @@ public class ReservationDTO {
 
 	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
+	}
+
+	public ClientDTO getClient() {
+		return client;
+	}
+
+	public void setClient(ClientDTO client) {
+		this.client = client;
 	}
 }

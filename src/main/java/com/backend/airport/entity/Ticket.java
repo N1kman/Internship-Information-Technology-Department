@@ -33,14 +33,24 @@ public class Ticket {
 	
 	@ManyToOne
     @JoinColumn(name="id_flight", nullable=false)
-	private Flight flight  = new Flight();
+	private Flight flight;
 	
 	@ManyToOne
     @JoinColumn(name="id_seat", nullable=false)
-	private Seat seat = new Seat();
+	private Seat seat;
 	
 	@OneToOne(mappedBy = "ticket", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private Reservation reservation;
+	
+	public void addReservation(Reservation reservation) {
+		this.reservation = reservation;
+		reservation.setTicket(this);
+	}
+
+	public void removeReservation(Reservation reservation) {
+		this.reservation = null;
+		reservation.setTicket(null);
+	}
 	
 	public String getTicketNumber() {
 		return ticketNumber;

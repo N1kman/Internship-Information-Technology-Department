@@ -38,7 +38,7 @@ public class Flight {
 	
 	@ManyToOne
     @JoinColumn(name="id_aircraft", nullable=false)
-	private Aircraft aircraft = new Aircraft();
+	private Aircraft aircraft;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinTable(

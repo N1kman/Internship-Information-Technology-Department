@@ -15,69 +15,80 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.airport.DTO.ClientDTO;
-import com.backend.airport.entity.Client;
-import com.backend.airport.mapper.ClientMapper;
-import com.backend.airport.service.ClientService;
+import com.backend.airport.DTO.ReservationDTO;
+import com.backend.airport.entity.Reservation;
+import com.backend.airport.mapper.ReservationMapper;
+import com.backend.airport.service.ReservationService;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/clients")
-public class ClientController {
-	
+@RequestMapping("/reservations")
+public class ReservationController {
+
+	private final ReservationService reservationService;
+	private final ReservationMapper reservationMapper;
+
 	@Autowired
-	private ClientService clientService;
-	
-	@Autowired
-	private ClientMapper clientMapper;
-	
+	public ReservationController(ReservationService reservationService, ReservationMapper reservationMapper) {
+		this.reservationService = reservationService;
+		this.reservationMapper = reservationMapper;
+	}
+
 	@GetMapping("/{id}")
-	public ResponseEntity<ClientDTO> get(@PathVariable Long id) {
+	public ResponseEntity<ReservationDTO> get(@PathVariable Long id) {
 		try {
-			return new ResponseEntity<>(clientMapper.toDTO(clientService.getClient(id)), HttpStatus.OK);
+			return new ResponseEntity<>(reservationMapper.toDTO(reservationService.getReservation(id)), HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<Set<ClientDTO>> getAll() {
+	public ResponseEntity<Set<ReservationDTO>> getAll() {
 		try {
-			List<Client> list = clientService.getClients();
+			List<Reservation> list = reservationService.getReservations();
 			if (list.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}
-			return new ResponseEntity<>(clientMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
+			return new ResponseEntity<>(reservationMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ClientDTO> delete(@PathVariable Long id) {
+	public ResponseEntity<ReservationDTO> delete(@PathVariable Long id) {
 		try {
-			return new ResponseEntity<>(clientMapper.toDTO(clientService.deleteClient(id)), HttpStatus.OK);
+			return new ResponseEntity<>(reservationMapper.toDTO(reservationService.deleteReservation(id)),
+					HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
-	@PostMapping
-	public ResponseEntity<ClientDTO> get(@RequestBody ClientDTO client) {
+
+	@PostMapping("/{id}")
+	public ResponseEntity<ReservationDTO> post(@PathVariable Long id, @RequestBody ReservationDTO reservation) {
 		try {
-			return new ResponseEntity<>(clientMapper.toDTO(clientService.addClient(clientMapper.toClient(client))), HttpStatus.OK);
+			return new ResponseEntity<>(
+					reservationMapper
+							.toDTO(reservationService.addReservation(id, reservationMapper.toReservation(reservation))),
+					HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+
 }

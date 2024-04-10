@@ -3,6 +3,7 @@ package com.backend.airport.mapper;
 import java.util.Set;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 import com.backend.airport.DTO.ClientDTO;
@@ -15,6 +16,8 @@ public interface ClientMapper {
 	
 	Set<ClientDTO> toDTOs(Set<Client> client);
 	
+	@Mapping(target = "flights", ignore = true)
+	@Mapping(target = "reservations", ignore = true)
 	Client toClient(ClientDTO client);
 	
 	Set<Client> toClients(Set<ClientDTO> client);
