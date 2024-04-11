@@ -10,7 +10,7 @@ public interface TicketService {
 	
 	List<Ticket> getTickets();
 	
-	Ticket deleteTicket(Long id);
+	void deleteTicket(Long id);
 	
 	Ticket addTicket(Long id, Ticket ticket);
 }

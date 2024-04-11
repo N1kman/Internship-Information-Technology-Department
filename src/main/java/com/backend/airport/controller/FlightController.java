@@ -51,8 +51,9 @@ public class FlightController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<FlightDTO> delete(@PathVariable Long id) {
-		return new ResponseEntity<>(flightMapper.toDTO(flightService.deleteFlight(id)), HttpStatus.OK);
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+		flightService.deleteFlight(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
 	}
 
 	@PostMapping

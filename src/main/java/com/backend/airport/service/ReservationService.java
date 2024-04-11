@@ -10,7 +10,7 @@ public interface ReservationService {
 	
 	List<Reservation> getReservations();
 	
-	Reservation deleteReservation(Long id);
+	void deleteReservation(Long id);
 	
 	Reservation addReservation(Long id, Reservation reservation);
 }

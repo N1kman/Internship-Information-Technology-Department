@@ -33,10 +33,8 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public Flight deleteFlight(Long id) {
-		Flight flight = flightRepository.getById(id);
-		flightRepository.delete(flight);
-		return flight;
+	public void deleteFlight(Long id) {
+		flightRepository.deleteById(id);
 	}
 
 	@Override

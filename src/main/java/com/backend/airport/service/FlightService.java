@@ -10,7 +10,7 @@ public interface FlightService {
 	
 	List<Flight> getFlights();
 	
-	Flight deleteFlight(Long id);
+	void deleteFlight(Long id);
 	
 	Flight addFlight(Flight flight);
 	

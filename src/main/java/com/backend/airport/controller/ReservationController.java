@@ -51,8 +51,9 @@ public class ReservationController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ReservationDTO> delete(@PathVariable Long id) {
-		return new ResponseEntity<>(reservationMapper.toDTO(reservationService.deleteReservation(id)), HttpStatus.OK);
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+		reservationService.deleteReservation(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
 	}
 
 	@PostMapping("/{id}")

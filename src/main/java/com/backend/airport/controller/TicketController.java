@@ -51,8 +51,9 @@ public class TicketController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<TicketDTO> delete(@PathVariable Long id) {
-		return new ResponseEntity<>(ticketMapper.toDTO(ticketService.deleteTicket(id)), HttpStatus.OK);
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+		ticketService.deleteTicket(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
 	}
 
 	/* id - reference to Flight */
