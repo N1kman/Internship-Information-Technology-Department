@@ -38,69 +38,32 @@ public class FlightController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<FlightDTO> get(@PathVariable Long id) {
-		try {
-			return new ResponseEntity<>(flightMapper.toDTO(flightService.getFlight(id)), HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		return new ResponseEntity<>(flightMapper.toDTO(flightService.getFlight(id)), HttpStatus.OK);
 	}
 
 	@GetMapping
 	public ResponseEntity<Set<FlightDTO>> getAll() {
-		try {
-			List<Flight> list = flightService.getFlights();
-			if (list.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-			}
-			return new ResponseEntity<>(flightMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		List<Flight> list = flightService.getFlights();
+		if (list.isEmpty()) {
+			throw new EntityNotFoundException("Table is clear");
 		}
+		return new ResponseEntity<>(flightMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<FlightDTO> delete(@PathVariable Long id) {
-		try {
-			return new ResponseEntity<>(flightMapper.toDTO(flightService.deleteFlight(id)), HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		return new ResponseEntity<>(flightMapper.toDTO(flightService.deleteFlight(id)), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<FlightDTO> post(@RequestBody FlightDTO flight) {
-		try {
-			return new ResponseEntity<>(flightMapper.toDTO(flightService.addFlight(flightMapper.toFlight(flight))),
-					HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		return new ResponseEntity<>(flightMapper.toDTO(flightService.addFlight(flightMapper.toFlight(flight))),
+				HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<FlightDTO> put(@RequestBody FlightDTO flight) {
-		try {
-			return new ResponseEntity<>(flightMapper.toDTO(flightService.updateFlight(flightMapper.toFlight(flight))),
-					HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		return new ResponseEntity<>(flightMapper.toDTO(flightService.updateFlight(flightMapper.toFlight(flight))),
+				HttpStatus.OK);
 	}
 }

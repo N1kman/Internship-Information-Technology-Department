@@ -37,58 +37,29 @@ public class ReservationController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ReservationDTO> get(@PathVariable Long id) {
-		try {
-			return new ResponseEntity<>(reservationMapper.toDTO(reservationService.getReservation(id)), HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		return new ResponseEntity<>(reservationMapper.toDTO(reservationService.getReservation(id)), HttpStatus.OK);
 	}
 
 	@GetMapping
 	public ResponseEntity<Set<ReservationDTO>> getAll() {
-		try {
-			List<Reservation> list = reservationService.getReservations();
-			if (list.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-			}
-			return new ResponseEntity<>(reservationMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		List<Reservation> list = reservationService.getReservations();
+		if (list.isEmpty()) {
+			throw new EntityNotFoundException("Table is clear");
 		}
+		return new ResponseEntity<>(reservationMapper.toDTOs(new HashSet<>(list)), HttpStatus.OK);
+
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ReservationDTO> delete(@PathVariable Long id) {
-		try {
-			return new ResponseEntity<>(reservationMapper.toDTO(reservationService.deleteReservation(id)),
-					HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		return new ResponseEntity<>(reservationMapper.toDTO(reservationService.deleteReservation(id)), HttpStatus.OK);
 	}
 
 	@PostMapping("/{id}")
 	public ResponseEntity<ReservationDTO> post(@PathVariable Long id, @RequestBody ReservationDTO reservation) {
-		try {
-			return new ResponseEntity<>(
-					reservationMapper
-							.toDTO(reservationService.addReservation(id, reservationMapper.toReservation(reservation))),
-					HttpStatus.OK);
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		return new ResponseEntity<>(
+				reservationMapper
+						.toDTO(reservationService.addReservation(id, reservationMapper.toReservation(reservation))),
+				HttpStatus.OK);
 	}
-
 }
