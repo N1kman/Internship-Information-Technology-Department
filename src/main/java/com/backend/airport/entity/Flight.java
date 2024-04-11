@@ -43,8 +43,8 @@ public class Flight {
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinTable(
 			name = "history", 
-			joinColumns = { @JoinColumn(name = "id_flight") }, 
-			inverseJoinColumns = { @JoinColumn(name = "id_client") }
+			joinColumns = @JoinColumn(name = "id_flight"), 
+			inverseJoinColumns = @JoinColumn(name = "id_client")
 	)
 	private Set<Client> clients = new HashSet<>();
 
