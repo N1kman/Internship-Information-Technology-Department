@@ -16,8 +16,6 @@ public class SeatDTO {
 	private String seatNumber;
 
 	private String seatType;
-	
-	private AircraftDTO aircraft;
 
 	public Long getId() {
 		return id;
@@ -43,11 +41,4 @@ public class SeatDTO {
 		this.seatType = seatType;
 	}
 
-	public AircraftDTO getAircraft() {
-		return aircraft;
-	}
-
-	public void setAircraft(AircraftDTO aircraft) {
-		this.aircraft = aircraft;
-	}
 }

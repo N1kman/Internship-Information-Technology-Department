@@ -13,6 +13,4 @@ public interface TicketService {
 	Ticket deleteTicket(Long id);
 	
 	Ticket addTicket(Long id, Ticket ticket);
-	
-	Ticket updateTicket(Ticket ticket);
 }

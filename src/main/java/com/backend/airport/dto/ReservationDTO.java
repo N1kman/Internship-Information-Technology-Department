@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(of = {"reservationDate"})
+@EqualsAndHashCode(of = {"id", "reservationDate"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

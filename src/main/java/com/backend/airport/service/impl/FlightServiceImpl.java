@@ -35,7 +35,7 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public Flight deleteFlight(Long id) {
 		Flight flight = flightRepository.getById(id);
-		flightRepository.deleteById(flight.getId());
+		flightRepository.delete(flight);
 		return flight;
 	}
 
@@ -48,12 +48,15 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public Flight updateFlight(Flight flight) {
 		Flight state = flightRepository.getById(flight.getId());
-		if (flight.getAircraft() == null || state.getAircraft().getId().equals(flight.getAircraft().getId())) {
-			flight.setAircraft(state.getAircraft());
-		} else {
-			flight.setAircraft(aircraftRepository.getById(flight.getAircraft().getId()));
+		if (flight.getAircraft() != null && state.getAircraft().getId().equals(flight.getAircraft().getId())) {
+			state.setAircraft(aircraftRepository.getById(flight.getAircraft().getId()));
 		}
-		return flightRepository.save(flight);
+		if(flight.getCode() != null) {
+			state.setCode(flight.getCode());
+		}
+		if(flight.getFlightInfo() != null) {
+			state.setFlightInfo(flight.getFlightInfo());
+		}	
+		return flightRepository.save(state);
 	}
-
 }

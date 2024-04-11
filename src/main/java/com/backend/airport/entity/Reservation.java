@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(of = {"reservationDate"})
+@EqualsAndHashCode(of = {"reservationDate", "ticket"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "reservation")

@@ -43,11 +43,12 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Reservation deleteReservation(Long id) {
 		Reservation reservation = reservationRepository.getById(id);
+		Reservation returnState = reservation;
 		reservation.getTicket().setTicketStatus(false);
 		reservation.getTicket().removeReservation(reservation);
 		reservation.getClient().removeReservation(reservation);
-		reservationRepository.deleteById(id);
-		return reservation;
+		reservationRepository.delete(reservation);
+		return returnState;
 	}
 
 	@Override

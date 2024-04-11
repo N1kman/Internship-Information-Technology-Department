@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,12 +59,6 @@ public class TicketController {
 	@PostMapping("/{id}")
 	public ResponseEntity<TicketDTO> post(@PathVariable Long id, @RequestBody TicketDTO ticket) {
 		return new ResponseEntity<>(ticketMapper.toDTO(ticketService.addTicket(id, ticketMapper.toTicket(ticket))),
-				HttpStatus.OK);
-	}
-
-	@PutMapping
-	public ResponseEntity<TicketDTO> put(@RequestBody TicketDTO ticket) {
-		return new ResponseEntity<>(ticketMapper.toDTO(ticketService.updateTicket(ticketMapper.toTicket(ticket))),
 				HttpStatus.OK);
 	}
 }

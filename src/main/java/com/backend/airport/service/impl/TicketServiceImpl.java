@@ -40,7 +40,7 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public Ticket deleteTicket(Long id) {
 		Ticket ticket = ticketRepository.getById(id);
-		ticketRepository.deleteById(ticket.getId());
+		ticketRepository.delete(ticket);
 		return ticket;
 	}
 
@@ -49,18 +49,6 @@ public class TicketServiceImpl implements TicketService {
 		ticket.setSeat(seatRepository.getById(ticket.getSeat().getId()));
 		Flight flight = flightRepository.getById(id);
 		ticket.setFlight(flight);
-		return ticketRepository.save(ticket);
-	}
-
-	@Override
-	public Ticket updateTicket(Ticket ticket) {
-		Ticket state = ticketRepository.getById(ticket.getId());
-		ticket.setFlight(state.getFlight());
-		if (ticket.getSeat() == null || ticket.getSeat().getId().equals(state.getSeat().getId())) {
-			ticket.setSeat(state.getSeat());
-		} else {
-			ticket.setSeat(seatRepository.getById(ticket.getSeat().getId()));
-		}
 		return ticketRepository.save(ticket);
 	}
 }
