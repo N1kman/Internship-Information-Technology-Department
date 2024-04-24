@@ -46,4 +46,4 @@
 Условие :page_facing_up: : 
   - React - Frontend
 
-Ветка для задания - TASK6 ❌
+Задание находится в отдельном проекте - <a href="https://github.com/EpicGuys/onlineShopPicasso">TASK6</a> ✔️
